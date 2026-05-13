@@ -8,44 +8,58 @@ import '../styles/global.css';
     <meta name="viewport" content="width=device-width" />
     <title>Rohan Joshi</title>
 
-    <!-- Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Inter Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Favicon -->
     <link rel="icon" href="/rohanjoshi.github.io/favicon.ico" />
   </head>
 
-  <body class="bg-black text-white font-[Inter]">
+  <body class="bg-black text-white font-[Inter] antialiased">
     <main class="max-w-6xl mx-auto px-6 md:px-10 py-24">
 
       <!-- HERO -->
       <section class="min-h-screen flex flex-col justify-center">
         <p class="text-gray-500 mb-4 tracking-[0.2em] uppercase text-sm">
-          Software Developer
+          Mechanical Engineering • Aerospace • Robotics
         </p>
 
-        <h1 class="text-7xl md:text-8xl font-extrabold leading-tight mb-6">
+        <h1 class="text-7xl md:text-8xl font-extrabold leading-none mb-8">
           Rohan Joshi
         </h1>
 
-        <p class="text-lg md:text-xl text-gray-400 max-w-2xl leading-relaxed">
-          Building software, systems, and experimental projects.
-          Interested in AI, operating systems, and full-stack development.
+        <p class="text-lg md:text-2xl text-gray-400 max-w-3xl leading-relaxed">
+          Mechanical Engineering student at Duke University focused on aerospace,
+          rocketry, robotics, and interdisciplinary engineering systems.
+          Interested in space exploration, advanced manufacturing,
+          aerodynamics, and integrating software with hardware.
         </p>
 
-        <div class="flex gap-4 mt-10">
+        <div class="flex flex-wrap gap-4 mt-12">
           <a
-            href="https://github.com/rjoshi4464-rgb"
+            href="mailto:rohan.joshi@duke.edu"
             class="border border-white px-6 py-3 rounded-full hover:bg-white hover:text-black transition duration-300"
           >
-            GitHub
+            Contact
           </a>
 
           <a
-            href="#projects"
+            href="https://www.linkedin.com/in/rohanjoshi2/"
+            target="_blank"
             class="border border-gray-700 px-6 py-3 rounded-full hover:border-white transition duration-300"
           >
-            Projects
+            LinkedIn
+          </a>
+
+          <a
+            href="https://github.com/rjoshi4464-rgb"
+            target="_blank"
+            class="border border-gray-700 px-6 py-3 rounded-full hover:border-white transition duration-300"
+          >
+            GitHub
           </a>
         </div>
       </section>
@@ -56,45 +70,271 @@ import '../styles/global.css';
           About
         </h2>
 
-        <p class="text-gray-400 text-lg leading-relaxed max-w-3xl">
-          I'm a developer focused on building performant software and thoughtful user experiences.
-          I enjoy working across systems, machine learning, and modern web technologies.
-        </p>
+        <div class="max-w-4xl space-y-6 text-lg text-gray-400 leading-relaxed">
+          <p>
+            I am a Mechanical Engineering student at Duke University pursuing
+            certificates in Aerospace Engineering and Innovation &
+            Entrepreneurship.
+          </p>
+
+          <p>
+            My work spans aerospace systems, structural analysis, aerodynamics,
+            additive manufacturing, embedded systems, and nanotechnology
+            research. I enjoy designing and building systems that bridge the gap
+            between physical engineering and computational tools.
+          </p>
+
+          <p>
+            Outside the classroom, I am involved with Duke AERO, the Academy for
+            Model Aeronautics, Engineering Student Government, and student
+            engineering initiatives focused on innovation and hands-on design.
+          </p>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section class="py-32 border-t border-gray-800">
+        <h2 class="text-4xl font-bold mb-16">
+          Experience
+        </h2>
+
+        <div class="space-y-16">
+
+          <div>
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-3">
+              <h3 class="text-2xl font-semibold">
+                SpaceX — Dragon Structures Engineering Intern
+              </h3>
+
+              <p class="text-gray-500 text-sm mt-2 md:mt-0">
+                Summer 2025
+              </p>
+            </div>
+
+            <p class="text-gray-400 text-lg leading-relaxed max-w-4xl">
+              Worked on structural analysis and qualification testing for Dragon
+              flight hardware and ground support equipment. Developed load cases
+              and qualification approaches using FEMAP/Nastran and contributed
+              to hardware validation and testing workflows.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-3">
+              <h3 class="text-2xl font-semibold">
+                General Dynamics Mission Systems — Integration & Test Intern
+              </h3>
+
+              <p class="text-gray-500 text-sm mt-2 md:mt-0">
+                Summer 2024
+              </p>
+            </div>
+
+            <p class="text-gray-400 text-lg leading-relaxed max-w-4xl">
+              Designed and assembled testing fixtures using Creo and performed
+              structural validation through ANSYS FEA. Developed a Python-based
+              oil contamination classification system for hydraulic testing and
+              assisted with verification and durability testing for underwater
+              systems.
+            </p>
+          </div>
+
+          <div>
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-3">
+              <h3 class="text-2xl font-semibold">
+                Embry-Riddle Aeronautical University — REU Research Intern
+              </h3>
+
+              <p class="text-gray-500 text-sm mt-2 md:mt-0">
+                Summer 2023
+              </p>
+            </div>
+
+            <p class="text-gray-400 text-lg leading-relaxed max-w-4xl">
+              Conducted nanotechnology research on Organic Electrochemical
+              Transistors (OECTs) for non-invasive glucose detection in
+              aerospace environments. Utilized advanced laboratory equipment,
+              additive manufacturing, and electrochemical testing methods to
+              improve sensor sensitivity and selectivity.
+            </p>
+          </div>
+
+        </div>
       </section>
 
       <!-- PROJECTS -->
-      <section id="projects" class="py-32 border-t border-gray-800">
-        <h2 class="text-4xl font-bold mb-12">
+      <section class="py-32 border-t border-gray-800">
+        <h2 class="text-4xl font-bold mb-16">
           Projects
         </h2>
 
         <div class="grid md:grid-cols-2 gap-8">
 
-          <a href="#" class="group border border-gray-800 rounded-2xl p-8 hover:border-white transition duration-300">
-            <h3 class="text-2xl font-semibold mb-4 group-hover:underline">
-              Orbital Osiris →
+          <!-- FINSIGHT -->
+          <div class="border border-gray-800 rounded-3xl p-8 hover:border-white transition duration-300">
+            <p class="text-sm uppercase tracking-widest text-gray-500 mb-4">
+              Duke AERO
+            </p>
+
+            <h3 class="text-3xl font-semibold mb-6">
+              FINsight
             </h3>
 
-            <p class="text-gray-400 leading-relaxed">
-              Experimental software project exploring systems, interfaces, and automation.
+            <p class="text-gray-400 leading-relaxed text-lg">
+              Led development of a strain-sensing fin system for Duke AERO’s
+              Pitchfork rocket. Integrated custom PCB strain gauges, Wheatstone
+              bridge circuitry, ADCs, and embedded systems to measure
+              aerodynamic loads during flight and improve aeroelastic analysis.
             </p>
+          </div>
+
+          <!-- OECT -->
+          <div class="border border-gray-800 rounded-3xl p-8 hover:border-white transition duration-300">
+            <p class="text-sm uppercase tracking-widest text-gray-500 mb-4">
+              Research
+            </p>
+
+            <h3 class="text-3xl font-semibold mb-6">
+              OECT Aerospace Biosensor Research
+            </h3>
+
+            <p class="text-gray-400 leading-relaxed text-lg">
+              Researched graphene-enhanced Organic Electrochemical Transistors
+              for glucose sensing in aerospace environments. Fabricated and
+              tested sensors using electrochemical analysis techniques and
+              semiconductor optimization methods.
+            </p>
+          </div>
+
+          <!-- TRASH TRAP -->
+          <div class="border border-gray-800 rounded-3xl p-8 hover:border-white transition duration-300">
+            <p class="text-sm uppercase tracking-widest text-gray-500 mb-4">
+              Environmental Design
+            </p>
+
+            <h3 class="text-3xl font-semibold mb-6">
+              Beaver Marsh Trash Trap
+            </h3>
+
+            <p class="text-gray-400 leading-relaxed text-lg">
+              Designed a wildlife-safe trash filtration system for Beaver Marsh
+              Preserve in Durham, NC. The design prevented debris accumulation
+              while enabling turtles to safely pass through the drainage system.
+            </p>
+          </div>
+
+          <!-- ROCKETRY -->
+          <div class="border border-gray-800 rounded-3xl p-8 hover:border-white transition duration-300">
+            <p class="text-sm uppercase tracking-widest text-gray-500 mb-4">
+              Aerospace Engineering
+            </p>
+
+            <h3 class="text-3xl font-semibold mb-6">
+              Rocketry & Avionics Systems
+            </h3>
+
+            <p class="text-gray-400 leading-relaxed text-lg">
+              Contributed to avionics systems, air brakes, Monte Carlo rocket
+              simulations, CFD analysis, and embedded flight systems through
+              Duke AERO and independent aerospace projects.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section class="py-32 border-t border-gray-800">
+        <h2 class="text-4xl font-bold mb-12">
+          Skills
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-10 text-gray-400">
+
+          <div>
+            <h3 class="text-white text-xl font-semibold mb-4">
+              Software
+            </h3>
+
+            <ul class="space-y-2">
+              <li>Python</li>
+              <li>Creo</li>
+              <li>SolidWorks</li>
+              <li>Fusion 360</li>
+              <li>ANSYS</li>
+              <li>FEMAP / Nastran</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-white text-xl font-semibold mb-4">
+              Manufacturing
+            </h3>
+
+            <ul class="space-y-2">
+              <li>3D Printing</li>
+              <li>CNC Milling</li>
+              <li>Laser Cutting</li>
+              <li>PCB Design</li>
+              <li>Soldering</li>
+              <li>Composite Fabrication</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="text-white text-xl font-semibold mb-4">
+              Interests
+            </h3>
+
+            <ul class="space-y-2">
+              <li>Rocketry</li>
+              <li>Drones</li>
+              <li>Aerodynamics</li>
+              <li>Space Exploration</li>
+              <li>FPV Systems</li>
+              <li>Robotics</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="py-32 border-t border-gray-800">
+        <h2 class="text-4xl font-bold mb-10">
+          Contact
+        </h2>
+
+        <div class="flex flex-wrap gap-6 text-lg">
+
+          <a
+            href="mailto:rohan.joshi@duke.edu"
+            class="underline hover:text-gray-300"
+          >
+            Email
           </a>
 
-          <a href="#" class="group border border-gray-800 rounded-2xl p-8 hover:border-white transition duration-300">
-            <h3 class="text-2xl font-semibold mb-4 group-hover:underline">
-              Project Two →
-            </h3>
+          <a
+            href="https://github.com/rjoshi4464-rgb"
+            target="_blank"
+            class="underline hover:text-gray-300"
+          >
+            GitHub
+          </a>
 
-            <p class="text-gray-400 leading-relaxed">
-              Add another project description here.
-            </p>
+          <a
+            href="https://www.linkedin.com/in/rohanjoshi2/"
+            target="_blank"
+            class="underline hover:text-gray-300"
+          >
+            LinkedIn
           </a>
 
         </div>
       </section>
 
       <!-- FOOTER -->
-      <footer class="py-20 border-t border-gray-800 text-gray-500">
+      <footer class="py-20 border-t border-gray-800 text-gray-600 text-sm">
         © 2026 Rohan Joshi
       </footer>
 
