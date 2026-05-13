@@ -1,168 +1,246 @@
 ---
 import '../styles/global.css';
+
+const experiences = [
+  {
+    company: 'SpaceX',
+    role: 'Dragon Structures Engineering Intern',
+    date: 'Summer 2025',
+    summary:
+      'Worked on structural analysis and qualification testing for Dragon flight hardware and ground support equipment.',
+  },
+  {
+    company: 'General Dynamics',
+    role: 'Integration & Test Intern',
+    date: 'Summer 2024',
+    summary:
+      'Designed testing fixtures, performed FEA analysis, and developed Python-based systems for testing workflows.',
+  },
+  {
+    company: 'Embry-Riddle',
+    role: 'Research Intern',
+    date: 'Summer 2023',
+    summary:
+      'Conducted nanotechnology research on Organic Electrochemical Transistors for aerospace biosensing applications.',
+  },
+];
+
+const projects = [
+  {
+    name: 'FINsight',
+    tag: 'Rocketry',
+    summary:
+      'A strain-sensing fin system for rocket flight analysis using embedded systems, PCB design, and structural validation.',
+  },
+  {
+    name: 'OECT Biosensor',
+    tag: 'Research',
+    summary:
+      'Nanotechnology research focused on glucose sensors designed for demanding aerospace environments.',
+  },
+  {
+    name: 'Trash Trap System',
+    tag: 'Design',
+    summary:
+      'An environmentally safe filtration system built to reduce debris accumulation in Beaver Marsh.',
+  },
+  {
+    name: 'Rocketry Systems',
+    tag: 'Aerospace',
+    summary:
+      'Avionics, air-brake, and simulation work across student aerospace systems and launch operations.',
+  },
+];
+
+const focusAreas = [
+  'Structural analysis',
+  'Aerospace systems',
+  'Robotics',
+  'Embedded hardware',
+  'Additive manufacturing',
+  'Research translation',
+];
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>Rohan Joshi</title>
+    <meta
+      name="description"
+      content="Rohan Joshi is a Mechanical Engineering student at Duke University focused on aerospace, robotics, rocketry, and interdisciplinary engineering systems."
+    />
+    <title>Rohan Joshi | Mechanical Engineering</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="icon" href="/favicon.ico" />
   </head>
 
-  <body class="bg-black text-white font-[Inter] antialiased">
-    <main class="max-w-6xl mx-auto px-6 md:px-10 py-24">
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <a href="#top" class="brand" aria-label="Rohan Joshi home">
+          <span class="brand-mark">RJ</span>
+          <span>Rohan Joshi</span>
+        </a>
 
-      <!-- HERO -->
-      <section class="min-h-screen flex flex-col justify-center relative overflow-hidden">
+        <nav aria-label="Primary navigation">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
 
-        <!-- Background Image -->
-        <img
-          src="/headshot.jpg"
-          alt="Rohan Joshi"
-          class="absolute inset-0 w-full h-full object-cover opacity-20 blur-sm"
-        />
+      <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow">Mechanical Engineering / Aerospace / Robotics</p>
+            <h1 id="hero-title">Rohan Joshi</h1>
+            <p class="hero-lede">
+              Mechanical Engineering student at Duke University building across
+              aerospace structures, rocketry, robotics, and interdisciplinary
+              engineering systems.
+            </p>
 
-        <!-- Overlay -->
-        <div class="absolute inset-0 bg-black/70"></div>
+            <div class="hero-actions" aria-label="Contact links">
+              <a class="button primary" href="mailto:rohan.joshi@duke.edu">
+                Email
+              </a>
+              <a class="button secondary" href="#projects">View Work</a>
+            </div>
+          </div>
 
-        <!-- Content -->
-        <div class="relative z-10">
-          <p class="text-gray-500 mb-4 tracking-[0.2em] uppercase text-sm">
-            Mechanical Engineering • Aerospace • Robotics
-          </p>
+          <aside class="hero-panel" aria-label="Profile summary">
+            <img src="/headshot.jpg" alt="Portrait of Rohan Joshi" />
+            <div class="panel-content">
+              <p>Duke University</p>
+              <strong>Mechanical Engineering</strong>
+              <span>Aerospace Engineering / Innovation & Entrepreneurship</span>
+            </div>
+          </aside>
+        </section>
 
-          <h1 class="text-7xl md:text-8xl font-extrabold leading-none mb-8">
-            Rohan Joshi
-          </h1>
-
-          <p class="text-lg md:text-2xl text-gray-400 max-w-3xl leading-relaxed">
-            Mechanical Engineering student at Duke University focused on aerospace,
-            rocketry, robotics, and interdisciplinary engineering systems.
-          </p>
-        </div>
-
-      </section>
-
-      <!-- ABOUT -->
-      <section class="py-32 border-t border-gray-800">
-        <h2 class="text-4xl font-bold mb-10">About</h2>
-
-        <div class="max-w-4xl space-y-6 text-lg text-gray-400 leading-relaxed">
-          <p>
-            I am a Mechanical Engineering student at Duke University pursuing
-            certificates in Aerospace Engineering and Innovation & Entrepreneurship.
-          </p>
-
-          <p>
-            My work spans aerospace systems, structural analysis, aerodynamics,
-            additive manufacturing, embedded systems, and nanotechnology research.
-          </p>
-
-          <p>
-            I enjoy designing and building systems that bridge the gap between
-            physical engineering and computational tools.
-          </p>
-        </div>
-      </section>
-
-      <!-- EXPERIENCE -->
-      <section class="py-32 border-t border-gray-800">
-        <h2 class="text-4xl font-bold mb-16">Experience</h2>
-
-        <div class="space-y-16">
-
+        <section class="signal-row" aria-label="Engineering focus areas">
           <div>
-            <h3 class="text-2xl font-semibold">
-              SpaceX — Dragon Structures Engineering Intern
-            </h3>
-            <p class="text-gray-500 text-sm mb-2">Summer 2025</p>
-            <p class="text-gray-400 max-w-4xl">
-              Worked on structural analysis and qualification testing for Dragon
-              flight hardware and ground support equipment.
-            </p>
+            <span>Focus</span>
+            <strong>Physical systems with computational rigor</strong>
           </div>
-
           <div>
-            <h3 class="text-2xl font-semibold">
-              General Dynamics — Integration & Test Intern
-            </h3>
-            <p class="text-gray-500 text-sm mb-2">Summer 2024</p>
-            <p class="text-gray-400 max-w-4xl">
-              Designed testing fixtures, performed FEA analysis, and developed
-              Python-based systems for testing workflows.
-            </p>
+            <span>Practice</span>
+            <strong>Analysis, prototyping, test, iteration</strong>
           </div>
-
           <div>
-            <h3 class="text-2xl font-semibold">
-              Embry-Riddle — Research Intern
-            </h3>
-            <p class="text-gray-500 text-sm mb-2">Summer 2023</p>
-            <p class="text-gray-400 max-w-4xl">
-              Conducted nanotechnology research on Organic Electrochemical
-              Transistors (OECTs) for aerospace biosensing applications.
-            </p>
+            <span>Now</span>
+            <strong>Aerospace structures and robotics</strong>
+          </div>
+        </section>
+
+        <section id="about" class="section about-grid">
+          <div>
+            <p class="section-kicker">About</p>
+            <h2>Engineering from concept to tested hardware.</h2>
           </div>
 
-        </div>
-      </section>
-
-      <!-- PROJECTS -->
-      <section class="py-32 border-t border-gray-800">
-        <h2 class="text-4xl font-bold mb-16">Projects</h2>
-
-        <div class="grid md:grid-cols-2 gap-8">
-
-          <div class="border border-gray-800 rounded-3xl p-8 hover:border-white transition duration-300">
-            <h3 class="text-2xl font-semibold mb-4">FINsight</h3>
-            <p class="text-gray-400">
-              Developed a strain-sensing fin system for rocket flight analysis using embedded systems and PCB design.
+          <div class="section-copy">
+            <p>
+              I am a Mechanical Engineering student at Duke University pursuing
+              certificates in Aerospace Engineering and Innovation &
+              Entrepreneurship.
+            </p>
+            <p>
+              My work spans aerospace systems, structural analysis,
+              aerodynamics, additive manufacturing, embedded systems, and
+              nanotechnology research.
+            </p>
+            <p>
+              I enjoy designing and building systems that bridge physical
+              engineering and computational tools.
             </p>
           </div>
+        </section>
 
-          <div class="border border-gray-800 rounded-3xl p-8 hover:border-white transition duration-300">
-            <h3 class="text-2xl font-semibold mb-4">OECT Biosensor</h3>
-            <p class="text-gray-400">
-              Conducted nanotechnology research on glucose sensors for aerospace environments.
-            </p>
+        <section class="focus-strip" aria-label="Technical strengths">
+          {focusAreas.map((area) => <span>{area}</span>)}
+        </section>
+
+        <section id="experience" class="section">
+          <div class="section-heading">
+            <p class="section-kicker">Experience</p>
+            <h2>Recent engineering roles.</h2>
           </div>
 
-          <div class="border border-gray-800 rounded-3xl p-8 hover:border-white transition duration-300">
-            <h3 class="text-2xl font-semibold mb-4">Trash Trap System</h3>
-            <p class="text-gray-400">
-              Designed an environmentally safe filtration system for Beaver Marsh to prevent debris buildup.
-            </p>
+          <div class="timeline">
+            {
+              experiences.map((item) => (
+                <article class="timeline-item">
+                  <div>
+                    <span>{item.date}</span>
+                    <h3>{item.company}</h3>
+                  </div>
+                  <div>
+                    <p class="role">{item.role}</p>
+                    <p>{item.summary}</p>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
+        <section id="projects" class="section">
+          <div class="section-heading">
+            <p class="section-kicker">Projects</p>
+            <h2>Selected work.</h2>
           </div>
 
-          <div class="border border-gray-800 rounded-3xl p-8 hover:border-white transition duration-300">
-            <h3 class="text-2xl font-semibold mb-4">Rocketry Systems</h3>
-            <p class="text-gray-400">
-              Worked on avionics, air brakes, and simulation systems for aerospace projects.
-            </p>
+          <div class="project-grid">
+            {
+              projects.map((project) => (
+                <article class="project-card">
+                  <div class="project-meta">
+                    <span>{project.tag}</span>
+                  </div>
+                  <h3>{project.name}</h3>
+                  <p>{project.summary}</p>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+          <div>
+            <p class="section-kicker">Contact</p>
+            <h2>Let's build something precise.</h2>
           </div>
 
-        </div>
-      </section>
+          <div class="contact-actions">
+            <a class="button primary" href="mailto:rohan.joshi@duke.edu">
+              Email
+            </a>
+            <a class="button secondary" href="https://github.com/rjoshi4464-rgb">
+              GitHub
+            </a>
+            <a
+              class="button secondary"
+              href="https://www.linkedin.com/in/rohanjoshi2/"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </section>
+      </main>
 
-      <!-- CONTACT -->
-      <section class="py-32 border-t border-gray-800">
-        <h2 class="text-4xl font-bold mb-10">Contact</h2>
-
-        <div class="flex gap-6">
-          <a href="mailto:rohan.joshi@duke.edu" class="underline">Email</a>
-          <a href="https://github.com/rjoshi4464-rgb" class="underline">GitHub</a>
-          <a href="https://www.linkedin.com/in/rohanjoshi2/" class="underline">LinkedIn</a>
-        </div>
-      </section>
-
-      <!-- FOOTER -->
-      <footer class="py-20 border-t border-gray-800 text-gray-600 text-sm">
-        © 2026 Rohan Joshi
+      <footer>
+        <span>© 2026 Rohan Joshi</span>
+        <span>Mechanical Engineering / Aerospace / Robotics</span>
       </footer>
-
-    </main>
+    </div>
   </body>
 </html>
