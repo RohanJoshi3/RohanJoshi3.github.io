@@ -1,23 +1,98 @@
 ---
 ---
 
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
     <title>Rohan Joshi</title>
   </head>
-  <body style="font-family: sans-serif; padding: 40px;">
-    <h1>Rohan Joshi</h1>
-    <p>Student / Developer</p>
 
-    <h2>Projects</h2>
-    <ul>
-      <li>Orbital Osiris</li>
-      <li>Project 2</li>
-    </ul>
+  <body class="bg-black text-white font-sans">
+    <main class="max-w-5xl mx-auto px-8 py-20">
 
-    <h2>Links</h2>
-    <ul>
-      <li><a href="https://github.com/rjoshi4464-rgb">GitHub</a></li>
-    </ul>
+      <!-- HERO -->
+      <section class="min-h-screen flex flex-col justify-center">
+        <p class="text-gray-400 mb-4 tracking-widest uppercase">
+          Software Developer
+        </p>
+
+        <h1 class="text-7xl font-bold leading-tight mb-6">
+          Rohan Joshi
+        </h1>
+
+        <p class="text-xl text-gray-300 max-w-2xl leading-relaxed">
+          Building software, systems, and experimental projects.
+          Interested in AI, operating systems, and full-stack development.
+        </p>
+
+        <div class="flex gap-4 mt-10">
+          <a
+            href="https://github.com/rjoshi4464-rgb"
+            class="border border-white px-6 py-3 rounded-full hover:bg-white hover:text-black transition"
+          >
+            GitHub
+          </a>
+
+          <a
+            href="#projects"
+            class="border border-gray-600 px-6 py-3 rounded-full hover:border-white transition"
+          >
+            Projects
+          </a>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="py-32 border-t border-gray-800">
+        <h2 class="text-4xl font-bold mb-10">
+          About
+        </h2>
+
+        <p class="text-gray-300 text-lg leading-relaxed max-w-3xl">
+          I'm a developer focused on building performant software and
+          thoughtful user experiences. I enjoy working across systems,
+          machine learning, and modern web technologies.
+        </p>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects" class="py-32 border-t border-gray-800">
+        <h2 class="text-4xl font-bold mb-12">
+          Projects
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+
+          <div class="border border-gray-800 rounded-2xl p-8 hover:border-white transition">
+            <h3 class="text-2xl font-semibold mb-4">
+              Orbital Osiris
+            </h3>
+
+            <p class="text-gray-400 leading-relaxed">
+              Experimental software project exploring systems,
+              interfaces, and automation.
+            </p>
+          </div>
+
+          <div class="border border-gray-800 rounded-2xl p-8 hover:border-white transition">
+            <h3 class="text-2xl font-semibold mb-4">
+              Project Two
+            </h3>
+
+            <p class="text-gray-400 leading-relaxed">
+              Add another project description here.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="py-20 border-t border-gray-800 text-gray-500">
+        © 2026 Rohan Joshi
+      </footer>
+
+    </main>
   </body>
 </html>
