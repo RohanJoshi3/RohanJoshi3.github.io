@@ -18,6 +18,7 @@ export type ProjectMeta = {
 
 export type Project = {
   slug: string;
+  href?: string;
   title: string;
   shortTitle: string;
   category: string;
@@ -726,6 +727,57 @@ export const projects: Project[] = [
         src: 'projects/pressure-vessel/as-built-end-cap-drawing.png',
         alt: 'As-built pressure vessel end cap drawing',
         caption: 'As-built end cap drawing for the four-bolt closure.',
+      },
+    ],
+  },
+  {
+    slug: 'lattice-structure',
+    href: 'lattice-structure/',
+    title: '3D Lattice Structure Design',
+    shortTitle: '3D Lattice Structure',
+    category: 'Mechanical Design / Additive Manufacturing',
+    date: 'ME 473 Structural Design',
+    summary:
+      'Design, simulation, and testing of a lightweight 3D-printed lattice structure built to support a 10 N load across a 150 mm span.',
+    image: 'projects/lattice-structure/final-cad.png',
+    imageAlt: 'Final 3D lattice structure CAD model',
+    tags: ['Lightweight structures', 'ANSYS', 'Buckling', '3D printing'],
+    meta: [
+      { label: 'Design load', value: '10 N suspended load' },
+      { label: 'Span', value: '150 mm square opening' },
+      { label: 'Manufacturing', value: 'Single-piece PLA print on a Bambu Labs P1P' },
+      { label: 'Test result', value: 'Survived 15.41 N and failed at about 18.20 N' },
+    ],
+    highlights: [
+      'Reduced an overbuilt 72-member concept into a lighter bridge-like final geometry.',
+      'Used ANSYS stress and eigenvalue buckling simulations to guide member layout and safety margins.',
+      'Validated the final structure experimentally with incremental hanging-weight load testing.',
+    ],
+    sections: [
+      {
+        heading: 'Overview',
+        eyebrow: 'Lightweight structure design',
+        paragraphs: [
+          'This project involved designing, 3D printing, and testing a lightweight lattice structure capable of supporting a 10 N load over a 150 mm square opening while minimizing material usage.',
+          'The design process balanced strength, stiffness, buckling resistance, and printability. The final case study is available as a polished standalone project page.',
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: 'projects/lattice-structure/final-cad.png',
+        alt: 'Final 3D lattice structure CAD model',
+        caption: 'Final CAD geometry with bridge-like support paths.',
+      },
+      {
+        src: 'projects/lattice-structure/final-buckling-10n.png',
+        alt: 'Final lattice structure buckling mode in ANSYS',
+        caption: 'Final design eigenvalue buckling result at the 10 N load case.',
+      },
+      {
+        src: 'projects/lattice-structure/test-setup.png',
+        alt: 'Physical lattice structure load test setup',
+        caption: 'Experimental setup with the printed frame spanning a 150 mm gap.',
       },
     ],
   },

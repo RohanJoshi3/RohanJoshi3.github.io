@@ -1,0 +1,1067 @@
+---
+import '../styles/global.css';
+
+const base = `${import.meta.env.BASE_URL}/`.replace(/\/+$/, '/');
+const asset = (path: string) => `${base}${path}`;
+const route = (path = '') => `${base}${path}`;
+
+const projectPath = 'projects/lattice-structure';
+const heroImage = asset(`${projectPath}/final-buckling-10n.png`);
+
+const requirements = [
+  {
+    label: 'Load',
+    value: '10 N',
+    detail: 'Design target for the suspended center load.',
+  },
+  {
+    label: 'Span',
+    value: '150 mm',
+    detail: 'Structure bridged a square opening between supports.',
+  },
+  {
+    label: 'Build',
+    value: 'Single piece',
+    detail: 'Geometry had to print as one continuous lattice.',
+  },
+  {
+    label: 'Members',
+    value: '12+',
+    detail: 'Minimum member count with identical cross sections.',
+  },
+  {
+    label: 'Section',
+    value: 'Circular',
+    detail: 'Common member profile for uniform stiffness behavior.',
+  },
+  {
+    label: 'Objective',
+    value: 'Minimum mass',
+    detail: 'Reduce material while maintaining load-bearing capacity.',
+  },
+];
+
+const principles = [
+  {
+    title: 'Tension and compression load paths',
+    detail:
+      'Tension members primarily carry axial stress, while compression members can fail through instability before material yield.',
+  },
+  {
+    title: 'Buckling governs slender compression members',
+    detail:
+      'Euler buckling was treated as the dominant risk, so member length and end conditions mattered as much as stress magnitude.',
+  },
+  {
+    title: 'Shorter members improve stability',
+    detail:
+      'Reducing unsupported length raised buckling resistance and helped the final design carry load with thinner members.',
+  },
+  {
+    title: 'Circular cross sections simplify behavior',
+    detail:
+      'Round members provided consistent bending stiffness independent of loading direction and were practical to model and print.',
+  },
+  {
+    title: 'Triangulation controls deformation',
+    detail:
+      'Triangular substructures converted the frame into stable load paths instead of relying on flexible rectangular spans.',
+  },
+  {
+    title: 'Print direction affects real strength',
+    detail:
+      'FDM anisotropy, layer bonding, supports, and local defects were considered because printed PLA does not behave like an ideal solid.',
+  },
+];
+
+const testingRows = [
+  ['10.01 N', 'No failure', '1.748 estimated experimental safety factor'],
+  ['15.41 N', 'No failure', '1.136 estimated experimental safety factor'],
+  ['18.20 N', 'Failure', '0.962 estimated experimental safety factor'],
+];
+
+const comparisonRows = [
+  ['10.01 N', '3.0199', '2.1468', '22.8%'],
+  ['15.41 N', '1.9617', '1.3945', '22.76%'],
+  ['18.20 N', '1.6610', '1.1807', '22.73%'],
+];
+
+const gallery = [
+  {
+    src: `${projectPath}/initial-cad.png`,
+    alt: 'Initial pyramidal lattice CAD model spanning a square opening',
+    caption: 'Initial 72-member pyramidal CAD concept.',
+  },
+  {
+    src: `${projectPath}/initial-stress.png`,
+    alt: 'Initial lattice ANSYS von Mises stress simulation',
+    caption: 'Initial stress simulation showing very low utilization.',
+  },
+  {
+    src: `${projectPath}/initial-buckling.png`,
+    alt: 'Initial lattice eigenvalue buckling simulation',
+    caption: 'Initial buckling result with an excessive reserve margin.',
+  },
+  {
+    src: `${projectPath}/secondary-cad.png`,
+    alt: 'Second lattice CAD iteration with reduced members',
+    caption: 'Second iteration after removing unnecessary members.',
+  },
+  {
+    src: `${projectPath}/secondary-stress.png`,
+    alt: 'Second lattice stress simulation in ANSYS',
+    caption: 'Second iteration stress simulation with better utilization.',
+  },
+  {
+    src: `${projectPath}/secondary-buckling.png`,
+    alt: 'Second lattice eigenvalue buckling mode shape',
+    caption: 'Second iteration buckling mode shape.',
+  },
+  {
+    src: `${projectPath}/final-cad.png`,
+    alt: 'Final 3D lattice structure CAD model',
+    caption: 'Final CAD geometry with bridge-like support paths.',
+  },
+  {
+    src: `${projectPath}/final-drawing.png`,
+    alt: 'Final lattice structure drawing with key dimensions',
+    caption: 'Final drawing showing the 2 mm members and global dimensions.',
+  },
+  {
+    src: `${projectPath}/final-fos-10n.png`,
+    alt: 'Final lattice safety factor result under 10 N load',
+    caption: 'Final design safety factor result at the 10 N design load.',
+  },
+  {
+    src: `${projectPath}/final-buckling-10n.png`,
+    alt: 'Final lattice first buckling mode under 10 N load',
+    caption: 'Final design first buckling mode, the governing failure mode.',
+  },
+  {
+    src: `${projectPath}/test-setup.png`,
+    alt: 'Physical lattice test setup with tables and hanging weights',
+    caption: 'Experimental setup using a 150 mm table gap and hanging weights.',
+  },
+  {
+    src: `${projectPath}/slicer-supports.png`,
+    alt: 'Bambu slicer view showing support material for the final lattice',
+    caption: 'Slicer view showing the support material required to print the final geometry.',
+  },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="3D Lattice Structure Design case study covering CAD design, ANSYS simulation, buckling analysis, 3D printing, and experimental testing of a lightweight load-bearing structure."
+    />
+    <title>3D Lattice Structure Design | Rohan Joshi</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href={asset('favicon-previous.png')} />
+    <link rel="apple-touch-icon" href={asset('favicon-previous.png')} />
+  </head>
+
+  <body class="case-body">
+    <header class="case-nav">
+      <a class="case-brand" href={route()}>RJ</a>
+      <nav aria-label="Lattice structure page navigation">
+        <a href={route('#portfolio')}>Portfolio</a>
+        <a href="#overview">Overview</a>
+        <a href="#simulation">Simulation</a>
+        <a href="#testing">Testing</a>
+        <a href="#gallery">Gallery</a>
+        <a href={route('resume/')}>Resume</a>
+      </nav>
+    </header>
+
+    <main class="overflow-hidden bg-[#05070a] text-slate-100">
+      <section
+        class="relative grid min-h-screen items-end bg-cover bg-center px-6 pb-14 pt-28 sm:px-10 lg:px-16 lg:pb-20"
+        style={`background-image: linear-gradient(90deg, rgba(5, 7, 10, 0.97) 0%, rgba(5, 7, 10, 0.78) 45%, rgba(5, 7, 10, 0.42) 100%), linear-gradient(180deg, rgba(5, 7, 10, 0.28) 0%, rgba(5, 7, 10, 0.94) 100%), url('${heroImage}');`}
+      >
+        <div class="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-end">
+          <div class="max-w-5xl">
+            <a class="mb-10 inline-flex text-sm font-bold uppercase text-cyan-300 transition hover:text-white" href={route('#portfolio')}>
+              Back to portfolio
+            </a>
+            <p class="mb-5 text-sm font-bold uppercase text-cyan-300">
+              Lightweight structures case study
+            </p>
+            <h1 class="max-w-5xl text-6xl font-black leading-[0.9] text-white sm:text-7xl lg:text-8xl">
+              3D Lattice Structure Design
+            </h1>
+            <p class="mt-8 max-w-3xl text-xl leading-8 text-slate-200 sm:text-2xl sm:leading-9">
+              Design, simulation, and testing of a lightweight load-bearing structure
+            </p>
+          </div>
+
+          <div class="grid gap-3 border border-white/15 bg-black/40 p-4 shadow-2xl backdrop-blur">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="metric-card">
+                <span>Design Load</span>
+                <strong>10 N</strong>
+              </div>
+              <div class="metric-card">
+                <span>Span</span>
+                <strong>150 mm</strong>
+              </div>
+              <div class="metric-card">
+                <span>Failure</span>
+                <strong>18.2 N</strong>
+              </div>
+              <div class="metric-card">
+                <span>Member Dia.</span>
+                <strong>2 mm</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="overview" class="section-shell border-t border-white/10">
+        <div class="section-kicker">Overview</div>
+        <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <h2 class="section-title">
+            A lightweight printed frame designed to carry load efficiently across a constrained span.
+          </h2>
+          <div class="copy-stack">
+            <p>
+              This project involved designing, 3D printing, and testing a lightweight lattice structure capable of supporting a 10 N load over a 150 mm square opening while minimizing material usage.
+            </p>
+            <p>
+              The engineering challenge was not simply making the part strong. The design needed to balance strength, stiffness, mass, manufacturability, and buckling resistance while remaining printable as a single-piece PLA structure.
+            </p>
+            <p>
+              CAD modeling, ANSYS simulation, iterative redesign, and physical load testing were used together to move from an overbuilt pyramidal frame to a more efficient bridge-like final geometry.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Design Requirements</div>
+        <div class="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <h2 class="section-title max-w-3xl">The structure had to be light, printable, and strong enough to pass a defined load case.</h2>
+          <p class="max-w-xl text-base leading-7 text-slate-400">
+            The requirements forced the design away from arbitrary material addition and toward efficient load paths.
+          </p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            requirements.map((item) => (
+              <article class="group border border-white/10 bg-white/[0.035] p-6 transition duration-200 hover:-translate-y-1 hover:border-cyan-300/55 hover:bg-white/[0.06]">
+                <p class="text-xs font-bold uppercase text-cyan-300">{item.label}</p>
+                <h3 class="mt-4 text-3xl font-black text-white">{item.value}</h3>
+                <p class="mt-4 text-sm leading-6 text-slate-400">{item.detail}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Engineering Principles</div>
+        <div class="mb-10 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <h2 class="section-title">The final geometry was shaped around stability, not just stress.</h2>
+          <p class="max-w-2xl text-lg leading-8 text-slate-400">
+            Lightweight lattices often fail through buckling or manufacturing defects before reaching an ideal material stress limit. The design process treated member layout, member length, and print quality as primary engineering variables.
+          </p>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {
+            principles.map((principle) => (
+              <article class="principle-card">
+                <h3>{principle.title}</h3>
+                <p>{principle.detail}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Initial Design</div>
+        <div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div class="copy-stack">
+            <h2 class="section-title">The first concept was strong, but inefficient.</h2>
+            <p>
+              The initial design used a stacked pyramidal structure with 72 members and an estimated mass of about 30 g. It easily carried the design load, but that performance came from excess material rather than an optimized load path.
+            </p>
+            <p>
+              ANSYS results showed a stress safety factor of about 10.77 and an eigenvalue buckling multiplier of about 24. In practical terms, the design was far beyond the required 10 N load case and included many zero-force members that did little structural work.
+            </p>
+            <div class="grid gap-3 sm:grid-cols-3">
+              <div class="stat-box">
+                <span>Members</span>
+                <strong>72</strong>
+              </div>
+              <div class="stat-box">
+                <span>Mass</span>
+                <strong>~30 g</strong>
+              </div>
+              <div class="stat-box">
+                <span>Buckling Mult.</span>
+                <strong>~24</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid gap-5">
+            <a class="image-panel" href={asset(`${projectPath}/initial-cad.png`)} target="_blank" rel="noreferrer">
+              <img src={asset(`${projectPath}/initial-cad.png`)} alt="Initial pyramidal lattice CAD model" loading="lazy" />
+            </a>
+            <div class="grid gap-5 sm:grid-cols-2">
+              <a class="image-panel" href={asset(`${projectPath}/initial-stress.png`)} target="_blank" rel="noreferrer">
+                <img src={asset(`${projectPath}/initial-stress.png`)} alt="Initial lattice stress simulation" loading="lazy" />
+              </a>
+              <a class="image-panel" href={asset(`${projectPath}/initial-buckling.png`)} target="_blank" rel="noreferrer">
+                <img src={asset(`${projectPath}/initial-buckling.png`)} alt="Initial lattice buckling simulation" loading="lazy" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Design Iteration</div>
+        <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <div class="grid gap-5">
+            <a class="image-panel" href={asset(`${projectPath}/secondary-cad.png`)} target="_blank" rel="noreferrer">
+              <img src={asset(`${projectPath}/secondary-cad.png`)} alt="Second lattice CAD iteration" loading="lazy" />
+            </a>
+            <div class="grid gap-5 sm:grid-cols-2">
+              <a class="image-panel" href={asset(`${projectPath}/secondary-stress.png`)} target="_blank" rel="noreferrer">
+                <img src={asset(`${projectPath}/secondary-stress.png`)} alt="Second lattice stress simulation" loading="lazy" />
+              </a>
+              <a class="image-panel" href={asset(`${projectPath}/secondary-buckling.png`)} target="_blank" rel="noreferrer">
+                <img src={asset(`${projectPath}/secondary-buckling.png`)} alt="Second lattice buckling simulation" loading="lazy" />
+              </a>
+            </div>
+          </div>
+
+          <div class="copy-stack">
+            <h2 class="section-title">Removing inactive members reduced mass and improved material utilization.</h2>
+            <p>
+              The second design removed unnecessary members, especially around the base corners, reducing the frame to 48 members and about 21 g.
+            </p>
+            <p>
+              Stress distribution improved and the stress safety factor dropped to about 1.35, which was much closer to the material-use objective. However, the model still contained zero-force members and left room for additional optimization.
+            </p>
+            <div class="grid gap-3 sm:grid-cols-3">
+              <div class="stat-box">
+                <span>Members</span>
+                <strong>48</strong>
+              </div>
+              <div class="stat-box">
+                <span>Mass</span>
+                <strong>~21 g</strong>
+              </div>
+              <div class="stat-box">
+                <span>Stress FOS</span>
+                <strong>~1.35</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Final Design</div>
+        <div class="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+          <div class="copy-stack">
+            <h2 class="section-title">The final frame uses bridge-like load paths and shorter compression members.</h2>
+            <p>
+              The final design reconfigured the frame to spread stress more evenly while reducing the risk of compression-member buckling. The pyramidal apex was replaced by intersecting bends, and the full perimeter support was replaced with a bridge-like structure that touched two sides of the span.
+            </p>
+            <p>
+              A central opening was maintained for the loading setup. Members were set to a 2 mm circular diameter, which was the smallest practical size for reliable printing on the Bambu Labs P1P while still surviving support removal.
+            </p>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <div class="stat-box">
+                <span>Member diameter</span>
+                <strong>2 mm</strong>
+              </div>
+              <div class="stat-box">
+                <span>Failure mode</span>
+                <strong>Buckling</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid gap-5">
+            <a class="image-panel" href={asset(`${projectPath}/final-cad.png`)} target="_blank" rel="noreferrer">
+              <img src={asset(`${projectPath}/final-cad.png`)} alt="Final lattice CAD geometry" loading="lazy" />
+            </a>
+            <a class="image-panel" href={asset(`${projectPath}/final-drawing.png`)} target="_blank" rel="noreferrer">
+              <img src={asset(`${projectPath}/final-drawing.png`)} alt="Final lattice drawing with dimensions" loading="lazy" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="simulation" class="section-shell border-t border-white/10">
+        <div class="section-kicker">Simulation</div>
+        <div class="mb-10 grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
+          <h2 class="section-title">ANSYS simulation showed that buckling, not yield, controlled the final design.</h2>
+          <p class="max-w-2xl text-lg leading-8 text-slate-400">
+            The final model used PLA material properties, mesh refinement, a distributed load at the top, and simple supports at the base faces to represent the table-contact condition.
+          </p>
+        </div>
+
+        <div class="grid gap-5 lg:grid-cols-3">
+          <article class="analysis-card">
+            <p class="analysis-letter">A</p>
+            <h3>Model Setup</h3>
+            <p>
+              ANSYS Mechanical was used with PLA material properties including an elastic modulus of 3 GPa and Poisson's ratio of 0.35. A refined mesh was applied to the slender members.
+            </p>
+            <div class="calc-box">
+              <span>Mesh</span>
+              <strong>0.05 in element sizing</strong>
+            </div>
+            <p>
+              The mesh needed enough resolution to capture deformation and buckling behavior without producing a noisy model.
+            </p>
+          </article>
+
+          <article class="analysis-card">
+            <p class="analysis-letter">B</p>
+            <h3>Boundary Conditions</h3>
+            <p>
+              The load was distributed over the upper loading face rather than applied as an ideal point force. The base used simple supports on the contact faces because the structure could slide slightly on the table surfaces.
+            </p>
+            <div class="calc-box">
+              <span>Load case</span>
+              <strong>10.01 N applied at the top</strong>
+            </div>
+            <p>
+              This better represented the physical test fixture, where force was transferred through the hanging weight setup.
+            </p>
+          </article>
+
+          <article class="analysis-card">
+            <p class="analysis-letter">C</p>
+            <h3>Result</h3>
+            <p>
+              The final design was predicted to safely carry the 10 N design load. The governing simulation result was eigenvalue buckling rather than von Mises stress.
+            </p>
+            <div class="calc-box">
+              <span>10 N buckling FOS</span>
+              <strong>2.1468 simulated</strong>
+            </div>
+            <p>
+              That margin supported moving forward to physical printing and incremental load testing.
+            </p>
+          </article>
+        </div>
+
+        <div class="mt-10 grid gap-5 md:grid-cols-2">
+          <a class="image-panel" href={asset(`${projectPath}/final-fos-10n.png`)} target="_blank" rel="noreferrer">
+            <img src={asset(`${projectPath}/final-fos-10n.png`)} alt="Final design safety factor result at 10 N" loading="lazy" />
+          </a>
+          <a class="image-panel" href={asset(`${projectPath}/final-buckling-10n.png`)} target="_blank" rel="noreferrer">
+            <img src={asset(`${projectPath}/final-buckling-10n.png`)} alt="Final design buckling mode at 10 N" loading="lazy" />
+          </a>
+        </div>
+
+        <div class="mt-5 grid gap-5 md:grid-cols-3">
+          <a class="image-panel" href={asset(`${projectPath}/mesh-quality.png`)} target="_blank" rel="noreferrer">
+            <img src={asset(`${projectPath}/mesh-quality.png`)} alt="Mesh quality plot" loading="lazy" />
+          </a>
+          <a class="image-panel" href={asset(`${projectPath}/load-faces.png`)} target="_blank" rel="noreferrer">
+            <img src={asset(`${projectPath}/load-faces.png`)} alt="Load faces used in ANSYS simulation" loading="lazy" />
+          </a>
+          <a class="image-panel" href={asset(`${projectPath}/support-faces.png`)} target="_blank" rel="noreferrer">
+            <img src={asset(`${projectPath}/support-faces.png`)} alt="Support faces used in ANSYS simulation" loading="lazy" />
+          </a>
+        </div>
+      </section>
+
+      <section id="testing" class="section-shell border-t border-white/10">
+        <div class="section-kicker">Testing</div>
+        <div class="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <a class="image-panel" href={asset(`${projectPath}/test-setup.png`)} target="_blank" rel="noreferrer">
+            <img src={asset(`${projectPath}/test-setup.png`)} alt="Lattice structure physical load test setup" loading="lazy" />
+          </a>
+
+          <div class="copy-stack">
+            <h2 class="section-title">The printed structure survived the design load and failed above the target.</h2>
+            <p>
+              The test setup placed the lattice across a 150 mm gap between two tables. Load was applied through hanging weights attached near the center of the structure, then increased incrementally until failure.
+            </p>
+            <p>
+              The structure survived 10.01 N and 15.41 N without failure, then failed at about 18.20 N. The first-failure load was estimated near 17.5 N based on the experimental data.
+            </p>
+            <div class="data-table" aria-label="Experimental load test results">
+              {
+                testingRows.map(([load, result, note]) => (
+                  <div>
+                    <strong>{load}</strong>
+                    <span>{result}</span>
+                    <p>{note}</p>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Simulation vs Experiment</div>
+        <div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div class="copy-stack">
+            <h2 class="section-title">The model overpredicted physical performance by roughly 20 to 23 percent.</h2>
+            <p>
+              Simulation correctly identified buckling as the controlling failure mode, but the experimental structure failed earlier than the idealized ANSYS model predicted.
+            </p>
+            <p>
+              The difference was consistent with real additive-manufacturing behavior: the printed part had lower effective infill density, layer anisotropy, small defects from FDM printing, and possible support-removal damage. Those imperfections reduced the strength of slender members and created local stress concentrations.
+            </p>
+          </div>
+
+          <div class="comparison-table" aria-label="Simulation and experiment comparison">
+            <div class="comparison-head">
+              <span>Load</span>
+              <span>Stress FOS</span>
+              <span>Buckling FOS</span>
+              <span>Difference</span>
+            </div>
+            {
+              comparisonRows.map(([load, stress, buckling, difference]) => (
+                <div class="comparison-row">
+                  <span>{load}</span>
+                  <span>{stress}</span>
+                  <span>{buckling}</span>
+                  <span>{difference}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <div class="section-kicker">Manufacturing Considerations</div>
+            <h2 class="section-title">Printability set a practical lower bound on structural efficiency.</h2>
+          </div>
+          <div class="copy-stack">
+            <p>
+              The final shape required removable supports because the load point sat above the base plane. Support removal became a real design constraint because the same slender members that reduced weight were also vulnerable to handling damage.
+            </p>
+            <p>
+              Testing and slicer review made 2 mm the practical minimum member diameter. Smaller members improved mass efficiency in theory, but print quality dropped and the risk of cracking during support removal increased.
+            </p>
+            <p>
+              The final design therefore balanced structural efficiency with the realities of FDM PLA fabrication: anisotropic layer behavior, support scars, infill assumptions, and the need to remove material without damaging the load path.
+            </p>
+            <a class="image-panel" href={asset(`${projectPath}/slicer-supports.png`)} target="_blank" rel="noreferrer">
+              <img src={asset(`${projectPath}/slicer-supports.png`)} alt="Bambu slicer support preview for lattice structure" loading="lazy" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="rounded-none border border-cyan-300/30 bg-cyan-300/[0.06] p-8 sm:p-10 lg:p-12">
+          <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div>
+              <div class="section-kicker">Results</div>
+              <h2 class="section-title">The final design met the 10 N requirement and provided experimental margin.</h2>
+            </div>
+            <div class="copy-stack">
+              <p>
+                The final printed structure successfully supported the required 10 N load over the 150 mm span and remained intact through 15.41 N.
+              </p>
+              <p>
+                Failure occurred at about 18.20 N, validating the core design approach while also showing the importance of accounting for real manufacturing effects in simulation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Key Takeaways</div>
+        <div class="grid gap-5 md:grid-cols-2">
+          <article class="takeaway-card">
+            <h3>Buckling dominates lightweight structures.</h3>
+            <p>
+              For slender printed members, stability can govern before material yield becomes the limiting condition.
+            </p>
+          </article>
+          <article class="takeaway-card">
+            <h3>Efficient load paths matter more than member count.</h3>
+            <p>
+              Removing inactive members made the design lighter and more meaningful structurally.
+            </p>
+          </article>
+          <article class="takeaway-card">
+            <h3>Simulation needs manufacturing reality.</h3>
+            <p>
+              Idealized solid PLA does not fully capture infill, layer bonding, support damage, and print defects.
+            </p>
+          </article>
+          <article class="takeaway-card">
+            <h3>3D printing constraints shape the design.</h3>
+            <p>
+              The minimum practical member diameter was set by printability and support removal, not just analysis.
+            </p>
+          </article>
+          <article class="takeaway-card md:col-span-2">
+            <h3>Iteration is essential for optimization.</h3>
+            <p>
+              The project moved from a safe but inefficient frame to a lighter bridge-like geometry through repeated CAD, simulation, printing, and testing cycles.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="gallery" class="section-shell border-t border-white/10">
+        <div class="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <div class="section-kicker">Image Gallery</div>
+            <h2 class="section-title max-w-3xl">Extracted report visuals from CAD, simulation, buckling, manufacturing, and testing.</h2>
+          </div>
+          <p class="max-w-lg text-base leading-7 text-slate-400">
+            Click any image to open the extracted report asset at full size.
+          </p>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {
+            gallery.map((image) => (
+              <figure class="gallery-card">
+                <a href={asset(image.src)} target="_blank" rel="noreferrer">
+                  <img src={asset(image.src)} alt={image.alt} loading="lazy" />
+                </a>
+                <figcaption>{image.caption}</figcaption>
+              </figure>
+            ))
+          }
+        </div>
+      </section>
+
+      <footer class="border-t border-white/10 px-6 py-8 text-sm text-slate-500 sm:px-10 lg:px-16">
+        <div class="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <span>&copy; 2026 Rohan Joshi</span>
+          <div class="flex gap-5 font-bold text-slate-300">
+            <a class="transition hover:text-cyan-300" href="mailto:rohan.joshi@duke.edu">Email</a>
+            <a class="transition hover:text-cyan-300" href="https://github.com/RohanJoshi3">GitHub</a>
+            <a class="transition hover:text-cyan-300" href="https://www.linkedin.com/in/rohanjoshi2/">LinkedIn</a>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(body.case-body) {
+    min-width: 320px;
+    background: #05070a;
+    color: #f8fafc;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  :global(body.case-body::before) {
+    display: none;
+  }
+
+  :global(body.case-body *) {
+    letter-spacing: 0;
+  }
+
+  .case-nav {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 24px;
+    pointer-events: none;
+  }
+
+  .case-brand,
+  .case-nav nav {
+    pointer-events: auto;
+  }
+
+  .case-brand {
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(5, 7, 10, 0.72);
+    color: #fff;
+    font-weight: 900;
+    backdrop-filter: blur(18px);
+    transition:
+      border-color 180ms ease,
+      color 180ms ease,
+      background 180ms ease;
+  }
+
+  .case-brand:hover,
+  .case-brand:focus-visible {
+    border-color: rgba(103, 232, 249, 0.8);
+    background: rgba(8, 47, 73, 0.72);
+    color: #67e8f9;
+  }
+
+  .case-nav nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(5, 7, 10, 0.7);
+    padding: 8px;
+    backdrop-filter: blur(18px);
+  }
+
+  .case-nav nav a {
+    padding: 8px 10px;
+    color: #cbd5e1;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition:
+      color 180ms ease,
+      background 180ms ease;
+  }
+
+  .case-nav nav a:hover,
+  .case-nav nav a:focus-visible {
+    background: rgba(103, 232, 249, 0.1);
+    color: #67e8f9;
+  }
+
+  .metric-card,
+  .stat-box {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 16px;
+  }
+
+  .metric-card span,
+  .stat-box span {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.76rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .metric-card strong {
+    display: block;
+    margin-top: 8px;
+    color: #fff;
+    font-size: 1.65rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .stat-box strong {
+    display: block;
+    margin-top: 8px;
+    color: #fff;
+    font-size: 1.35rem;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .section-shell {
+    padding: 96px 24px;
+  }
+
+  .section-shell > * {
+    max-width: 1280px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .section-kicker {
+    margin-bottom: 18px;
+    color: #67e8f9;
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2.25rem, 4.4vw, 4.8rem);
+    font-weight: 900;
+    line-height: 0.98;
+  }
+
+  .copy-stack {
+    display: grid;
+    gap: 18px;
+  }
+
+  .copy-stack p,
+  .analysis-card p,
+  .principle-card p,
+  .takeaway-card p,
+  .gallery-card figcaption,
+  .data-table p {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 1.02rem;
+    line-height: 1.75;
+  }
+
+  .image-panel {
+    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .image-panel img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition:
+      transform 260ms ease,
+      filter 260ms ease;
+  }
+
+  .image-panel:hover img,
+  .image-panel:focus-visible img {
+    transform: scale(1.025);
+    filter: contrast(1.05);
+  }
+
+  .analysis-card,
+  .principle-card,
+  .takeaway-card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)),
+      #070b11;
+    padding: 28px;
+  }
+
+  .analysis-card,
+  .principle-card {
+    display: grid;
+    gap: 18px;
+  }
+
+  .analysis-card h3,
+  .principle-card h3,
+  .takeaway-card h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.45rem;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .analysis-letter {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid rgba(103, 232, 249, 0.45);
+    color: #67e8f9 !important;
+    font-size: 0.95rem !important;
+    font-weight: 900;
+    line-height: 1 !important;
+  }
+
+  .calc-box {
+    border-left: 3px solid #67e8f9;
+    background: rgba(103, 232, 249, 0.075);
+    padding: 15px 16px;
+  }
+
+  .calc-box span {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .calc-box strong {
+    display: block;
+    margin-top: 6px;
+    color: #ecfeff;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .data-table,
+  .comparison-table {
+    display: grid;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .data-table div {
+    display: grid;
+    gap: 5px;
+    padding: 18px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .data-table div:first-child {
+    border-top: 0;
+  }
+
+  .data-table strong,
+  .data-table span {
+    color: #fff;
+    font-weight: 900;
+  }
+
+  .data-table span {
+    color: #67e8f9;
+    font-size: 0.92rem;
+    text-transform: uppercase;
+  }
+
+  .comparison-head,
+  .comparison-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .comparison-head span,
+  .comparison-row span {
+    padding: 15px 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+
+  .comparison-head span:first-child,
+  .comparison-row span:first-child {
+    border-left: 0;
+  }
+
+  .comparison-head {
+    background: rgba(103, 232, 249, 0.1);
+  }
+
+  .comparison-head span {
+    color: #ecfeff;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .comparison-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .gallery-card {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .gallery-card a {
+    display: block;
+    overflow: hidden;
+    background: #f8fafc;
+  }
+
+  .gallery-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    transition:
+      transform 240ms ease,
+      filter 240ms ease;
+  }
+
+  .gallery-card:hover img,
+  .gallery-card:focus-within img {
+    transform: scale(1.035);
+    filter: contrast(1.05);
+  }
+
+  .gallery-card figcaption {
+    padding: 16px 18px 18px;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .takeaway-card {
+    transition:
+      border-color 180ms ease,
+      transform 180ms ease,
+      background 180ms ease;
+  }
+
+  .takeaway-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(103, 232, 249, 0.44);
+    background:
+      linear-gradient(180deg, rgba(103, 232, 249, 0.08), rgba(255, 255, 255, 0.025)),
+      #070b11;
+  }
+
+  @media (min-width: 640px) {
+    .section-shell {
+      padding-right: 40px;
+      padding-left: 40px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-shell {
+      padding: 128px 64px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .case-nav {
+      align-items: flex-start;
+      padding: 14px;
+    }
+
+    .case-nav nav {
+      max-width: calc(100vw - 84px);
+    }
+
+    .case-nav nav a {
+      padding: 7px 8px;
+      font-size: 0.68rem;
+    }
+
+    .comparison-head,
+    .comparison-row {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .comparison-head span:nth-child(3),
+    .comparison-row span:nth-child(3) {
+      border-left: 0;
+    }
+  }
+</style>

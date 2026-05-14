@@ -7,10 +7,12 @@ type Props = {
 };
 
 export function getStaticPaths() {
-  return projects.map((project) => ({
-    params: { slug: project.slug },
-    props: { project },
-  }));
+  return projects
+    .filter((project) => !project.href)
+    .map((project) => ({
+      params: { slug: project.slug },
+      props: { project },
+    }));
 }
 
 const { project } = Astro.props;
