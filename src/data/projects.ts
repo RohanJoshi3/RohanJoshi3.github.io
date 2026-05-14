@@ -472,8 +472,8 @@ export const projects: Project[] = [
     date: 'SpaceX Internship',
     summary:
       'Structural analysis, qualification, and test-correlation work for Dragon flight hardware and Ground Support Equipment supporting launch operations at Cape Canaveral.',
-    image: 'projects/spacex-dragon-capsule.png',
-    imageAlt: 'SpaceX Dragon spacecraft in orbit above Earth',
+    image: 'projects/spacex-dragon-approach.jpg',
+    imageAlt: 'SpaceX Dragon crew spacecraft approaching the International Space Station',
     tags: ['Structural analysis', 'Qualification testing', 'Fatigue and fracture', 'Engineering tools'],
     meta: [
       { label: 'Team', value: 'Dragon Structures' },
@@ -544,10 +544,22 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        src: 'projects/spacex-dragon-capsule.png',
-        alt: 'SpaceX Dragon spacecraft in orbit above Earth',
+        src: 'projects/spacex-dragon-approach.jpg',
+        alt: 'SpaceX Dragon crew spacecraft approaching the International Space Station',
         caption:
-          'Dragon spacecraft imagery used to represent the structures engineering internship while keeping component-level work confidential.',
+          'SpaceX Dragon crew spacecraft approaching the International Space Station. Image source: NASA image library.',
+      },
+      {
+        src: 'projects/spacex-dragon-docked.jpg',
+        alt: 'SpaceX Dragon crew spacecraft docked to the International Space Station',
+        caption:
+          'SpaceX Dragon crew spacecraft docked to the Harmony module on the International Space Station. Image source: NASA image library.',
+      },
+      {
+        src: 'projects/spacex-dragon-recovery.jpg',
+        alt: 'SpaceX Crew Dragon capsule being recovered from the Atlantic Ocean',
+        caption:
+          'Crew Dragon capsule recovery after returning from the International Space Station. Image source: NASA image library.',
       },
     ],
   },
