@@ -1,0 +1,31 @@
+---
+import '../../styles/global.css';
+
+const base = `${import.meta.env.BASE_URL}/`.replace(/\/+$/, '/');
+const route = (path = '') => `${base}${path}`;
+const destination = route('pressure-vessel/');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="refresh" content={`0; url=${destination}`} />
+    <title>Pressure Vessel Design | Rohan Joshi</title>
+    <link rel="canonical" href={destination} />
+  </head>
+  <body>
+    <main class="resume-page">
+      <section class="resume-header">
+        <div>
+          <p class="section-label">Redirecting</p>
+          <h1>Pressure Vessel Design</h1>
+        </div>
+        <a class="resume-button" href={destination}>Open project</a>
+      </section>
+    </main>
+    <script is:inline define:vars={{ destination }}>
+      window.location.replace(destination);
+    </script>
+  </body>
+</html>

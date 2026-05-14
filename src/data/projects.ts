@@ -566,6 +566,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'pressure-vessel',
+    href: 'pressure-vessel/',
     title: 'Pressure Vessel Design',
     shortTitle: 'Pressure Vessel Design',
     category: 'Mechanical Design / Manufacturing',

@@ -2,30 +2,845 @@
 import '../styles/global.css';
 
 const base = `${import.meta.env.BASE_URL}/`.replace(/\/+$/, '/');
+const asset = (path: string) => `${base}${path}`;
 const route = (path = '') => `${base}${path}`;
-const destination = route('projects/pressure-vessel/');
+
+const projectPath = 'projects/pressure-vessel';
+const heroImage = asset(`${projectPath}/final-machined-vessel.jpg`);
+
+const requirements = [
+  {
+    label: 'Operating pressure',
+    value: '750 psi',
+    detail: 'Contain hydrostatic pressure with conservative safety margin.',
+  },
+  {
+    label: 'Fluid volume',
+    value: '50-60 cc',
+    detail: 'Hold the specified internal volume while keeping the vessel compact.',
+  },
+  {
+    label: 'Seal',
+    value: 'O-ring',
+    detail: 'Use a reliable static face seal for pressure containment.',
+  },
+  {
+    label: 'Port',
+    value: '0.25 in NPT',
+    detail: 'Provide threaded fluid access for testing and filling.',
+  },
+  {
+    label: 'Manufacturing',
+    value: 'Manual machines',
+    detail: 'Keep the geometry practical for a lathe and mill workflow.',
+  },
+  {
+    label: 'Budget',
+    value: '< $100',
+    detail: 'Stay within the material budget for the project.',
+  },
+];
+
+const principles = [
+  {
+    title: 'Pressure vessels are driven by hoop stress.',
+    detail:
+      'The first screen check was a thin-wall style hoop stress calculation using the internal pressure, radius, and wall thickness.',
+  },
+  {
+    title: 'Sealing matters as much as wall strength.',
+    detail:
+      'The end cap, gland, and O-ring had to work together to hold pressure without leakage or excessive assembly risk.',
+  },
+  {
+    title: 'Geometry can simplify machining.',
+    detail:
+      'A cylindrical body reduced turning complexity compared with a flange-heavy concept and made the joint easier to inspect.',
+  },
+  {
+    title: 'Fastener load sharing must be checked.',
+    detail:
+      'The separating force on the end cap was sized against bolt preload, joint stiffness, and separation margin.',
+  },
+  {
+    title: 'Design margin can be intentional.',
+    detail:
+      'The final part was not optimized for minimum mass. It was sized for manufacturability, robustness, and repeatability.',
+  },
+  {
+    title: 'Validation closes the loop.',
+    detail:
+      'The completed vessel was pressure tested, confirming the analytical and manufacturing decisions in the final design.',
+  },
+];
+
+const gallery = [
+  {
+    src: `${projectPath}/final-machined-vessel.jpg`,
+    alt: 'Final machined aluminum pressure vessel with brass fitting',
+    caption: 'Final machined vessel used for the pressure test.',
+  },
+  {
+    src: `${projectPath}/final-design-cad-photo.jpg`,
+    alt: 'CAD model beside the manufactured pressure vessel',
+    caption: 'CAD model compared against the finished hardware.',
+  },
+  {
+    src: `${projectPath}/design-evolution.png`,
+    alt: 'Pressure vessel design evolution from flange concept to final geometry',
+    caption: 'Design evolution from flange-based concept to compact cylindrical body.',
+  },
+  {
+    src: `${projectPath}/assembly-drawing.png`,
+    alt: 'Assembly drawing for the pressure vessel',
+    caption: 'Final assembly drawing showing the vessel, cap, and sealing interface.',
+  },
+  {
+    src: `${projectPath}/original-flange-drawing.png`,
+    alt: 'Original flange pressure vessel drawing',
+    caption: 'Original flange concept used during the design trade.',
+  },
+  {
+    src: `${projectPath}/original-end-cap-drawing.png`,
+    alt: 'Original pressure vessel end cap drawing',
+    caption: 'Original end cap geometry before the final simplification.',
+  },
+  {
+    src: `${projectPath}/as-built-vessel-drawing.png`,
+    alt: 'As-built pressure vessel drawing',
+    caption: 'As-built vessel drawing reflecting the machined dimensions.',
+  },
+  {
+    src: `${projectPath}/as-built-end-cap-drawing.png`,
+    alt: 'As-built pressure vessel end cap drawing',
+    caption: 'As-built end cap drawing for the final closure design.',
+  },
+];
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="refresh" content={`0; url=${destination}`} />
+    <meta
+      name="description"
+      content="Pressure Vessel Design case study covering design evolution, stress analysis, O-ring sizing, bolted joint design, manufacturing, and pressure test validation of a 750 psi aluminum vessel."
+    />
     <title>Pressure Vessel Design | Rohan Joshi</title>
-    <link rel="canonical" href={destination} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href={asset('favicon-previous.png')} />
+    <link rel="apple-touch-icon" href={asset('favicon-previous.png')} />
   </head>
-  <body>
-    <main class="resume-page">
-      <section class="resume-header">
-        <div>
-          <p class="section-label">Redirecting</p>
-          <h1>Pressure Vessel Design</h1>
+
+  <body class="case-body">
+    <header class="case-nav">
+      <a class="case-brand" href={route()}>RJ</a>
+      <nav aria-label="Pressure vessel page navigation">
+        <a href={route('#portfolio')}>Portfolio</a>
+        <a href="#overview">Overview</a>
+        <a href="#analysis">Analysis</a>
+        <a href="#manufacturing">Manufacturing</a>
+        <a href="#gallery">Gallery</a>
+        <a href={route('resume/')}>Resume</a>
+      </nav>
+    </header>
+
+    <main class="overflow-hidden bg-[#05070a] text-slate-100">
+      <section
+        class="relative grid min-h-screen items-end bg-cover bg-center px-6 pb-14 pt-28 sm:px-10 lg:px-16 lg:pb-20"
+        style={`background-image: linear-gradient(90deg, rgba(5, 7, 10, 0.98) 0%, rgba(5, 7, 10, 0.78) 45%, rgba(5, 7, 10, 0.36) 100%), linear-gradient(180deg, rgba(5, 7, 10, 0.28) 0%, rgba(5, 7, 10, 0.94) 100%), url('${heroImage}');`}
+      >
+        <div class="mx-auto grid w-full max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-end">
+          <div class="max-w-5xl">
+            <a class="mb-10 inline-flex text-sm font-bold uppercase text-cyan-300 transition hover:text-white" href={route('#portfolio')}>
+              Back to portfolio
+            </a>
+            <p class="mb-5 text-sm font-bold uppercase text-cyan-300">
+              Mechanical design case study
+            </p>
+            <h1 class="max-w-5xl text-6xl font-black leading-[0.9] text-white sm:text-7xl lg:text-8xl">
+              Pressure Vessel Design
+            </h1>
+            <p class="mt-8 max-w-3xl text-xl leading-8 text-slate-200 sm:text-2xl sm:leading-9">
+              Design, analysis, machining, and validation of a 750 psi aluminum pressure vessel
+            </p>
+          </div>
+
+          <div class="grid gap-3 border border-white/15 bg-black/40 p-4 shadow-2xl backdrop-blur">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="metric-card">
+                <span>Pressure</span>
+                <strong>750 psi</strong>
+              </div>
+              <div class="metric-card">
+                <span>Volume</span>
+                <strong>58.7 cc</strong>
+              </div>
+              <div class="metric-card">
+                <span>Seal</span>
+                <strong>219 O-ring</strong>
+              </div>
+              <div class="metric-card">
+                <span>Closure</span>
+                <strong>4 bolts</strong>
+              </div>
+            </div>
+          </div>
         </div>
-        <a class="resume-button" href={destination}>Open project</a>
       </section>
+
+      <section id="overview" class="section-shell border-t border-white/10">
+        <div class="section-kicker">Overview</div>
+        <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <h2 class="section-title">
+            A compact aluminum vessel designed around pressure containment, sealing reliability, and machinability.
+          </h2>
+          <div class="copy-stack">
+            <p>
+              This project focused on designing, analyzing, machining, and validating a cylindrical aluminum pressure vessel capable of containing water at 750 psig while holding 50-60 cc of fluid.
+            </p>
+            <p>
+              The final assembly used a 6061-T6 aluminum body, bored internal cavity, centered 0.25 in NPT threaded port, four-bolt end cap, and static O-ring sealing system. The design emphasized manufacturability on manual machines, reliable sealing, and conservative structural safety margins.
+            </p>
+            <p>
+              Hand calculations were completed before fabrication to validate hoop stress, O-ring groove sizing, fastener preload, joint stiffness, and separation resistance. Physical testing then confirmed the calculations by pressurizing the completed vessel to 750 psi without leakage.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Design Requirements</div>
+        <div class="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <h2 class="section-title max-w-3xl">The vessel had to be safe, seal reliably, and remain practical to machine.</h2>
+          <p class="max-w-xl text-base leading-7 text-slate-400">
+            The constraints favored a simple pressure boundary with a controlled sealing interface and predictable fastener layout.
+          </p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            requirements.map((item) => (
+              <article class="group border border-white/10 bg-white/[0.035] p-6 transition duration-200 hover:-translate-y-1 hover:border-cyan-300/55 hover:bg-white/[0.06]">
+                <p class="text-xs font-bold uppercase text-cyan-300">{item.label}</p>
+                <h3 class="mt-4 text-3xl font-black text-white">{item.value}</h3>
+                <p class="mt-4 text-sm leading-6 text-slate-400">{item.detail}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Engineering Principles</div>
+        <div class="mb-10 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <h2 class="section-title">The design was shaped by pressure loading, seal behavior, and manufacturability.</h2>
+          <p class="max-w-2xl text-lg leading-8 text-slate-400">
+            The final geometry was not the thinnest possible vessel. It was a practical part that could be machined, assembled, and tested repeatedly with acceptable margin.
+          </p>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {
+            principles.map((principle) => (
+              <article class="principle-card">
+                <h3>{principle.title}</h3>
+                <p>{principle.detail}</p>
+              </article>
+            ))
+          }
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Design Evolution</div>
+        <div class="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
+          <div class="copy-stack">
+            <h2 class="section-title">The vessel evolved from a flange-heavy concept into a simpler cylindrical body.</h2>
+            <p>
+              The early design used a flange-based closure with a bolt and nut stack-up. That concept achieved the basic pressure vessel architecture, but it added unnecessary turning operations, more radial material removal, and more setup complexity on manual machines.
+            </p>
+            <p>
+              The design evolved into a uniform-diameter cylindrical body with threaded holes in the vessel. This removed extra lathe work, reduced the bolt count to four, kept the bolt pattern symmetric, and made the O-ring groove easier to machine between the internal bore and the fastener circle.
+            </p>
+            <div class="grid gap-3 sm:grid-cols-3">
+              <div class="stat-box">
+                <span>Bolt count</span>
+                <strong>4</strong>
+              </div>
+              <div class="stat-box">
+                <span>Material</span>
+                <strong>6061-T6</strong>
+              </div>
+              <div class="stat-box">
+                <span>Volume</span>
+                <strong>58.7 cc</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid gap-5">
+            <a class="image-panel" href={asset(`${projectPath}/design-evolution.png`)} target="_blank" rel="noreferrer">
+              <img src={asset(`${projectPath}/design-evolution.png`)} alt="Pressure vessel design evolution from flange concept to final geometry" loading="lazy" />
+            </a>
+            <div class="grid gap-5 sm:grid-cols-2">
+              <a class="image-panel" href={asset(`${projectPath}/original-flange-drawing.png`)} target="_blank" rel="noreferrer">
+                <img src={asset(`${projectPath}/original-flange-drawing.png`)} alt="Original flange pressure vessel drawing" loading="lazy" />
+              </a>
+              <a class="image-panel" href={asset(`${projectPath}/original-end-cap-drawing.png`)} target="_blank" rel="noreferrer">
+                <img src={asset(`${projectPath}/original-end-cap-drawing.png`)} alt="Original pressure vessel end cap drawing" loading="lazy" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Final Design</div>
+        <div class="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+          <div class="copy-stack">
+            <h2 class="section-title">The final vessel used a symmetric cylindrical body with a compact face-sealed end cap.</h2>
+            <p>
+              The final vessel was machined from aluminum 6061-T6 stock, selected for strength, machinability, and weight. The body has a 2.500 in outer diameter, 1.250 in inner diameter, 0.625 in wall thickness, and a 2.92 in internal cavity length, giving an internal volume of 3.58 in3, or 58.7 cc.
+            </p>
+            <p>
+              A single 0.25 in NPT port is centered at the top for fluid entry. The end cap sits flush against the vessel body and is clamped by four M6-1 bolts into threaded holes. The O-ring groove sits between the central cavity and bolt pattern, creating a compact static face seal.
+            </p>
+            <div class="grid gap-3 sm:grid-cols-2">
+              <div class="stat-box">
+                <span>Outer diameter</span>
+                <strong>2.500 in</strong>
+              </div>
+              <div class="stat-box">
+                <span>Wall thickness</span>
+                <strong>0.625 in</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid gap-5">
+            <a class="image-panel" href={asset(`${projectPath}/final-machined-vessel.jpg`)} target="_blank" rel="noreferrer">
+              <img src={asset(`${projectPath}/final-machined-vessel.jpg`)} alt="Final machined aluminum pressure vessel with brass fitting" loading="lazy" />
+            </a>
+            <a class="image-panel" href={asset(`${projectPath}/final-design-cad-photo.jpg`)} target="_blank" rel="noreferrer">
+              <img src={asset(`${projectPath}/final-design-cad-photo.jpg`)} alt="CAD model beside the manufactured pressure vessel" loading="lazy" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="analysis" class="section-shell border-t border-white/10">
+        <div class="section-kicker">Engineering Analysis</div>
+        <div class="mb-10 grid gap-8 lg:grid-cols-[0.92fr_1.08fr]">
+          <h2 class="section-title">Hand calculations sized the vessel, the seal, and the bolted joint.</h2>
+          <p class="max-w-2xl text-lg leading-8 text-slate-400">
+            The analytical model combined pressure vessel stress checks, O-ring gland sizing, and bolted-joint separation analysis to validate the geometry before machining.
+          </p>
+        </div>
+
+        <div class="grid gap-5 lg:grid-cols-3">
+          <article class="analysis-card">
+            <p class="analysis-letter">A</p>
+            <h3>Pressure Vessel Stress Analysis</h3>
+            <p>
+              Thin-wall pressure vessel theory was used as a conservative screening calculation. With internal pressure P = 750 psi, inner radius ri = 0.625 in, and wall thickness t = 0.625 in, the hoop stress calculation gave sigma_hoop = 750 psi.
+            </p>
+            <div class="calc-box">
+              <span>Material strength</span>
+              <strong>6061-T6, 40 ksi yield and 50 ksi ultimate</strong>
+            </div>
+            <p>
+              Those values produced factors of safety of approximately 53.3 against yield and 66.7 against ultimate failure.
+            </p>
+          </article>
+
+          <article class="analysis-card">
+            <p class="analysis-letter">B</p>
+            <h3>O-Ring Design</h3>
+            <p>
+              The final design used a silicone standard size 219 O-ring because the larger cross section fit between the 1.25 in cavity and bolt pattern while producing a practical gland.
+            </p>
+            <div class="calc-box">
+              <span>Gland checks</span>
+              <strong>19.4 percent compression, 72.5 percent fill</strong>
+            </div>
+            <p>
+              Groove geometry was derived using Parker radial seal design guidance and sized to keep the seal compressed without overfilling the gland.
+            </p>
+          </article>
+
+          <article class="analysis-card">
+            <p class="analysis-letter">C</p>
+            <h3>Fastener Analysis</h3>
+            <p>
+              The internal pressure creates a separating force on the end cap that must be resisted by the bolted joint. Using the effective circular area of 1.2217 in2 and design pressure of 750 psi, the total separating force was calculated as 920.38 lbf.
+            </p>
+            <div class="calc-box">
+              <span>Joint margins</span>
+              <strong>16.8 separation factor and 18.7 overload factor</strong>
+            </div>
+            <p>
+              The joint model included bolt stiffness, member stiffness, preload, and torque, with the final stiffness ratio reported as C = 0.0906.
+            </p>
+          </article>
+        </div>
+
+        <div class="mt-10 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div class="copy-stack">
+            <h2 class="section-title">The calculations intentionally favored a robust, manufacturable geometry.</h2>
+            <p>
+              Those factors are intentionally high. The theoretical minimum wall thickness was far smaller, but a thin section would be impractical to machine, more likely to chatter, and less robust during assembly and pressure testing.
+            </p>
+            <p>
+              The final wall thickness was chosen for manufacturability and repeatable hardware quality as much as pure stress margin.
+            </p>
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <a class="image-panel" href={asset(`${projectPath}/as-built-vessel-drawing.png`)} target="_blank" rel="noreferrer">
+              <img src={asset(`${projectPath}/as-built-vessel-drawing.png`)} alt="As-built pressure vessel drawing" loading="lazy" />
+            </a>
+            <a class="image-panel" href={asset(`${projectPath}/as-built-end-cap-drawing.png`)} target="_blank" rel="noreferrer">
+              <img src={asset(`${projectPath}/as-built-end-cap-drawing.png`)} alt="As-built pressure vessel end cap drawing" loading="lazy" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="manufacturing" class="section-shell border-t border-white/10">
+        <div class="section-kicker">Manufacturing</div>
+        <div class="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <div class="copy-stack">
+            <h2 class="section-title">The vessel was built around straightforward lathe and mill operations.</h2>
+            <p>
+              The final geometry was designed around straightforward manual lathe and mill operations. The main lathe work involved preparing the cylindrical stock and boring the internal cavity to the required diameter and depth.
+            </p>
+            <p>
+              Mill operations focused on drilling and tapping the threaded holes, machining the O-ring groove, and preparing the mating end cap. The simplified cylindrical body removed unnecessary flange turning operations and reduced the number of critical setups.
+            </p>
+            <p>
+              This manufacturability-driven approach made the pressure vessel easier to machine accurately, easier to assemble, and easier to inspect before testing.
+            </p>
+          </div>
+
+          <a class="image-panel" href={asset(`${projectPath}/assembly-drawing.png`)} target="_blank" rel="noreferrer">
+            <img src={asset(`${projectPath}/assembly-drawing.png`)} alt="Assembly drawing for the pressure vessel" loading="lazy" />
+          </a>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="rounded-none border border-cyan-300/30 bg-cyan-300/[0.06] p-8 sm:p-10 lg:p-12">
+          <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <div>
+              <div class="section-kicker">Results</div>
+              <h2 class="section-title">The completed vessel held 750 psi during testing with no observed leakage.</h2>
+            </div>
+            <div class="copy-stack">
+              <p>
+                The completed pressure vessel successfully contained pressurized water at 750 psi during testing with no observed leakage. This validated the hand calculations, material selection, O-ring design, fastener design, and manufacturing decisions used throughout the project.
+              </p>
+              <p>
+                The final design met the project requirements for pressure containment, 50-60 cc capacity, manufacturability, sealing, threaded fluid access, and budget-conscious hardware selection.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-shell border-t border-white/10">
+        <div class="section-kicker">Key Takeaways</div>
+        <div class="grid gap-5 md:grid-cols-2">
+          <article class="takeaway-card">
+            <h3>Manufacturability is a primary design constraint.</h3>
+            <p>
+              The design was simplified so it could be machined, assembled, and inspected reliably on manual equipment.
+            </p>
+          </article>
+          <article class="takeaway-card">
+            <h3>Sealing systems deserve first-class analysis.</h3>
+            <p>
+              Pressure containment depends on the full closure system, not just on the vessel wall thickness.
+            </p>
+          </article>
+          <article class="takeaway-card">
+            <h3>Simple geometry can be the best answer.</h3>
+            <p>
+              The cylindrical body reduced setup complexity and made the design easier to inspect and build.
+            </p>
+          </article>
+          <article class="takeaway-card">
+            <h3>Validation closes the loop.</h3>
+            <p>
+              The pressure test confirmed that the calculations and fabrication choices worked in the real part.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="gallery" class="section-shell border-t border-white/10">
+        <div class="mb-10 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <div class="section-kicker">Image Gallery</div>
+            <h2 class="section-title max-w-3xl">Extracted report visuals from CAD, evolution sketches, drawings, and the final vessel.</h2>
+          </div>
+          <p class="max-w-lg text-base leading-7 text-slate-400">
+            Click any image to open the extracted report asset at full size.
+          </p>
+        </div>
+
+        <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {
+            gallery.map((image) => (
+              <figure class="gallery-card">
+                <a href={asset(image.src)} target="_blank" rel="noreferrer">
+                  <img src={asset(image.src)} alt={image.alt} loading="lazy" />
+                </a>
+                <figcaption>{image.caption}</figcaption>
+              </figure>
+            ))
+          }
+        </div>
+      </section>
+
+      <footer class="border-t border-white/10 px-6 py-8 text-sm text-slate-500 sm:px-10 lg:px-16">
+        <div class="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <span>&copy; 2026 Rohan Joshi</span>
+          <div class="flex gap-5 font-bold text-slate-300">
+            <a class="transition hover:text-cyan-300" href="mailto:rohan.joshi@duke.edu">Email</a>
+            <a class="transition hover:text-cyan-300" href="https://github.com/RohanJoshi3">GitHub</a>
+            <a class="transition hover:text-cyan-300" href="https://www.linkedin.com/in/rohanjoshi2/">LinkedIn</a>
+          </div>
+        </div>
+      </footer>
     </main>
-    <script is:inline define:vars={{ destination }}>
-      window.location.replace(destination);
-    </script>
   </body>
 </html>
+
+<style>
+  :global(body.case-body) {
+    min-width: 320px;
+    background: #05070a;
+    color: #f8fafc;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  :global(body.case-body::before) {
+    display: none;
+  }
+
+  :global(body.case-body *) {
+    letter-spacing: 0;
+  }
+
+  .case-nav {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 24px;
+    pointer-events: none;
+  }
+
+  .case-brand,
+  .case-nav nav {
+    pointer-events: auto;
+  }
+
+  .case-brand {
+    display: grid;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(5, 7, 10, 0.72);
+    color: #fff;
+    font-weight: 900;
+    backdrop-filter: blur(18px);
+    transition:
+      border-color 180ms ease,
+      color 180ms ease,
+      background 180ms ease;
+  }
+
+  .case-brand:hover,
+  .case-brand:focus-visible {
+    border-color: rgba(103, 232, 249, 0.8);
+    background: rgba(8, 47, 73, 0.72);
+    color: #67e8f9;
+  }
+
+  .case-nav nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(5, 7, 10, 0.7);
+    padding: 8px;
+    backdrop-filter: blur(18px);
+  }
+
+  .case-nav nav a {
+    padding: 8px 10px;
+    color: #cbd5e1;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition:
+      color 180ms ease,
+      background 180ms ease;
+  }
+
+  .case-nav nav a:hover,
+  .case-nav nav a:focus-visible {
+    background: rgba(103, 232, 249, 0.1);
+    color: #67e8f9;
+  }
+
+  .metric-card,
+  .stat-box {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 16px;
+  }
+
+  .metric-card span,
+  .stat-box span {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.76rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .metric-card strong {
+    display: block;
+    margin-top: 8px;
+    color: #fff;
+    font-size: 1.65rem;
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  .stat-box strong {
+    display: block;
+    margin-top: 8px;
+    color: #fff;
+    font-size: 1.35rem;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .section-shell {
+    padding: 96px 24px;
+  }
+
+  .section-shell > * {
+    max-width: 1280px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .section-kicker {
+    margin-bottom: 18px;
+    color: #67e8f9;
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2.25rem, 4.4vw, 4.8rem);
+    font-weight: 900;
+    line-height: 0.98;
+  }
+
+  .copy-stack {
+    display: grid;
+    gap: 18px;
+  }
+
+  .copy-stack p,
+  .analysis-card p,
+  .principle-card p,
+  .takeaway-card p,
+  .gallery-card figcaption,
+  .data-table p {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 1.02rem;
+    line-height: 1.75;
+  }
+
+  .image-panel {
+    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .image-panel img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition:
+      transform 260ms ease,
+      filter 260ms ease;
+  }
+
+  .image-panel:hover img,
+  .image-panel:focus-visible img {
+    transform: scale(1.025);
+    filter: contrast(1.05);
+  }
+
+  .analysis-card,
+  .principle-card,
+  .takeaway-card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.025)),
+      #070b11;
+    padding: 28px;
+  }
+
+  .analysis-card,
+  .principle-card {
+    display: grid;
+    gap: 18px;
+  }
+
+  .analysis-card h3,
+  .principle-card h3,
+  .takeaway-card h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.45rem;
+    font-weight: 900;
+    line-height: 1.15;
+  }
+
+  .analysis-letter {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid rgba(103, 232, 249, 0.45);
+    color: #67e8f9 !important;
+    font-size: 0.95rem !important;
+    font-weight: 900;
+    line-height: 1 !important;
+  }
+
+  .calc-box {
+    border-left: 3px solid #67e8f9;
+    background: rgba(103, 232, 249, 0.075);
+    padding: 15px 16px;
+  }
+
+  .calc-box span {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .calc-box strong {
+    display: block;
+    margin-top: 6px;
+    color: #ecfeff;
+    font-size: 1rem;
+    line-height: 1.45;
+  }
+
+  .gallery-card {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .gallery-card a {
+    display: block;
+    overflow: hidden;
+    background: #f8fafc;
+  }
+
+  .gallery-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    transition:
+      transform 240ms ease,
+      filter 240ms ease;
+  }
+
+  .gallery-card:hover img,
+  .gallery-card:focus-within img {
+    transform: scale(1.035);
+    filter: contrast(1.05);
+  }
+
+  .gallery-card figcaption {
+    padding: 16px 18px 18px;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+
+  .takeaway-card {
+    transition:
+      border-color 180ms ease,
+      transform 180ms ease,
+      background 180ms ease;
+  }
+
+  .takeaway-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(103, 232, 249, 0.44);
+    background:
+      linear-gradient(180deg, rgba(103, 232, 249, 0.08), rgba(255, 255, 255, 0.025)),
+      #070b11;
+  }
+
+  @media (min-width: 640px) {
+    .section-shell {
+      padding-right: 40px;
+      padding-left: 40px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-shell {
+      padding: 128px 64px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .case-nav {
+      align-items: flex-start;
+      padding: 14px;
+    }
+
+    .case-nav nav {
+      max-width: calc(100vw - 84px);
+    }
+
+    .case-nav nav a {
+      padding: 7px 8px;
+      font-size: 0.68rem;
+    }
+  }
+</style>
