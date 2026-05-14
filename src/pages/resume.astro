@@ -4,7 +4,7 @@ import '../styles/global.css';
 const base = `${import.meta.env.BASE_URL}/`.replace(/\/+$/, '/');
 const asset = (path: string) => `${base}${path}`;
 const route = (path = '') => `${base}${path}`;
-const resumePath = asset('resume/rohan-joshi-resume.pdf');
+const resumePath = `${asset('resume/rohan-joshi-resume.pdf')}?v=20260514`;
 ---
 
 <html lang="en">
@@ -13,7 +13,7 @@ const resumePath = asset('resume/rohan-joshi-resume.pdf');
     <meta name="viewport" content="width=device-width" />
     <meta
       name="description"
-      content="Resume for Rohan Joshi, Mechanical Engineering student at Duke University."
+      content="Resume for Rohan Joshi, Duke Mechanical Engineering alum."
     />
     <title>Resume | Rohan Joshi</title>
 
