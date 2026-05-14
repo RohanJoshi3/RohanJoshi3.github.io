@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+
+const base = `${import.meta.env.BASE_URL}/`.replace(/\/+$/, '/');
+const asset = (path: string) => `${base}${path}`;
+const route = (path = '') => `${base}${path}`;
+const resumePath = asset('resume/rohan-joshi-resume.pdf');
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta
+      name="description"
+      content="Resume for Rohan Joshi, Mechanical Engineering student at Duke University."
+    />
+    <title>Resume | Rohan Joshi</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href={asset('favicon-previous.png')} />
+    <link rel="apple-touch-icon" href={asset('favicon-previous.png')} />
+  </head>
+
+  <body>
+    <header class="site-nav">
+      <a class="nav-brand" href={route()}>RJ</a>
+      <nav aria-label="Primary navigation">
+        <a href={route('#portfolio')}>Portfolio</a>
+        <a href={route('#about')}>About</a>
+        <a href={route('resume/')}>Resume</a>
+        <a href={route('#contact')}>Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="resume-page">
+        <div class="resume-header">
+          <div>
+            <p class="section-label">Resume</p>
+            <h1>Rohan Joshi</h1>
+          </div>
+          <a class="resume-button" href={resumePath} target="_blank" rel="noreferrer">
+            Open PDF
+          </a>
+        </div>
+
+        <div class="resume-frame">
+          <iframe src={resumePath} title="Rohan Joshi resume PDF"></iframe>
+        </div>
+      </section>
+
+      <footer class="site-footer" id="contact">
+        <span>&copy; 2026 Rohan Joshi</span>
+        <div>
+          <a href="mailto:rohan.joshi@duke.edu">Email</a>
+          <a href="https://github.com/rjoshi4464-rgb">GitHub</a>
+          <a href="https://www.linkedin.com/in/rohanjoshi2/">LinkedIn</a>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>

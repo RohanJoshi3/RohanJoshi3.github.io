@@ -125,7 +125,8 @@ img {
 
 .intro-name,
 .project-hero h1,
-.about-panel h1 {
+.about-panel h1,
+.resume-header h1 {
   margin: 0;
   font-family: "Playfair Display", Georgia, serif;
   font-weight: 700;
@@ -347,6 +348,57 @@ img {
 .site-footer a:hover,
 .site-footer a:focus-visible {
   color: var(--red);
+}
+
+.resume-page {
+  display: grid;
+  min-height: 100svh;
+  gap: 28px;
+  padding: 118px 8% 58px;
+}
+
+.resume-header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.resume-header h1 {
+  margin-top: 10px;
+  font-size: 4.8rem;
+  line-height: 0.98;
+}
+
+.resume-button {
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  padding: 13px 16px;
+  color: var(--white);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.resume-button:hover,
+.resume-button:focus-visible {
+  background: var(--red);
+}
+
+.resume-frame {
+  min-height: calc(100svh - 275px);
+  border: 2px solid var(--ink);
+  background: var(--ink);
+}
+
+.resume-frame iframe {
+  display: block;
+  width: 100%;
+  height: min(1120px, calc(100svh - 275px));
+  min-height: 720px;
+  border: 0;
+  background: var(--white);
 }
 
 .project-hero {
@@ -740,6 +792,24 @@ img {
     padding: 110px 18px 64px;
   }
 
+  .resume-page {
+    padding: 110px 18px 44px;
+  }
+
+  .resume-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .resume-header h1 {
+    font-size: 3.25rem;
+  }
+
+  .resume-frame iframe {
+    height: 72svh;
+    min-height: 620px;
+  }
+
   .project-hero h1 {
     font-size: 3.25rem;
   }
@@ -808,6 +878,7 @@ img {
   }
 
   .about-panel h1,
+  .resume-header h1,
   .project-hero h1 {
     font-size: 2.55rem;
   }
