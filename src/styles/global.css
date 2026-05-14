@@ -256,6 +256,16 @@ img {
   line-height: 1.75;
 }
 
+.about-copy a {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.about-copy a:hover,
+.about-copy a:focus-visible {
+  color: var(--red);
+}
+
 .portfolio {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
