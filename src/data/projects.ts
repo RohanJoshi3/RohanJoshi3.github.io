@@ -351,6 +351,119 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: 'active-suspension-capstone',
+    title: 'Active Suspension Robot for Drop Impact Mitigation',
+    shortTitle: 'Active Suspension Robot',
+    category: 'Senior Design Capstone',
+    date: 'Senior Design Capstone',
+    summary:
+      'A reusable active suspension platform designed to reduce peak impact loads during parachute-assisted payload delivery.',
+    image: 'projects/capstone-active-suspension.jpg',
+    imageAlt: 'Active suspension scissor-lift prototype on a workbench',
+    tags: ['Dynamic systems', 'Active control', 'Impact testing', 'CAD and fabrication'],
+    meta: [
+      { label: 'Application', value: 'Parachute-assisted payload delivery and low-velocity airdrop protection' },
+      { label: 'Impact condition', value: 'Payloads can reach impact speeds near 28.5 ft/s even in controlled drops' },
+      { label: 'Core mechanism', value: 'Scissor-lift suspension with belt-brake energy dissipation' },
+      { label: 'Goal', value: 'Reduce peak deceleration through reusable, adaptive impact mitigation' },
+    ],
+    highlights: [
+      'Designed a reusable active suspension system as an alternative to single-use passive absorbers such as honeycomb structures and airbags.',
+      'Converted vertical impact energy into controlled mechanical motion through a scissor mechanism and belt-brake routing path.',
+      'Integrated mechanical design, dynamic modeling, structural analysis, prototyping, and test planning into one working capstone platform.',
+    ],
+    sections: [
+      {
+        heading: 'Problem Context',
+        eyebrow: 'Why active impact mitigation',
+        paragraphs: [
+          'The project focused on designing and building an active suspension system capable of mitigating impact forces during drop events. The target application was parachute-assisted payload delivery, where even controlled low-velocity drops can create damaging deceleration loads when the payload reaches the ground.',
+          'Existing impact protection systems often use crushable honeycomb structures, foam, or airbags. These solutions can be effective, but they are generally passive, single-use, and tuned for a narrow set of conditions. That limits reusability and makes it difficult to adapt to different payload masses, drop heights, or landing conditions.',
+          'Our goal was to develop a reusable, actively controlled system that could respond to impact conditions and reduce the peak force transmitted to the payload.',
+        ],
+      },
+      {
+        heading: 'System Design',
+        eyebrow: 'Mechanical architecture',
+        paragraphs: [
+          'The final prototype uses a scissor-lift style suspension structure to convert vertical impact motion into controlled mechanical travel. The top payload platform moves relative to the lower frame, giving the system stroke distance over which impact energy can be absorbed and dissipated.',
+          'A belt-brake path routes the suspension motion through pulleys and a central braking element. This creates a way to tune resistance during compression, allowing the system to manage impact energy rather than relying only on fixed stiffness. The structure was designed around aluminum extrusion framing, machined brackets, scissor links, bearings, and guided sliding interfaces.',
+        ],
+        bullets: [
+          'Suspension geometry provides controlled deformation during impact.',
+          'Frame and linkage layout balance stroke length, stiffness, compactness, and manufacturability.',
+          'Belt routing converts suspension motion into a controllable braking interaction.',
+          'Mechanical stops and structural members protect the platform from overtravel and repeated impact loads.',
+        ],
+      },
+      {
+        heading: 'Engineering Requirements',
+        eyebrow: 'Modeling before hardware',
+        paragraphs: [
+          'We first characterized the expected drop velocities and impact loads, using the 28.5 ft/s impact speed as a key design case. That analysis helped define the required stroke, energy capacity, structural robustness, and target deceleration reduction.',
+          'The system had to reduce peak forces while remaining reusable. That meant designing for repeated impacts rather than one-time crushing. Requirements were framed around controlled energy dissipation, structural survival, repeatable response, and adaptability to different impact scenarios.',
+        ],
+        bullets: [
+          'Reduce peak payload deceleration relative to passive impact mitigation.',
+          'Dissipate energy in a controlled and repeatable way.',
+          'Maintain structural integrity under repeated drop events.',
+          'Support tuning through geometry, belt path, damping, and actuation response.',
+        ],
+      },
+      {
+        heading: 'Active Control Strategy',
+        eyebrow: 'Adaptive response',
+        paragraphs: [
+          'The active portion of the design was intended to let the system adapt its damping behavior instead of behaving like a fixed passive absorber. During impact, sensing and control components can detect the state of the suspension and adjust the actuation or braking response.',
+          'This creates a more flexible design space: the system can be tuned for softer initial engagement, stronger braking as stroke is consumed, or different response profiles depending on payload mass and drop severity. The control strategy connects the mechanical suspension to real-time system behavior.',
+        ],
+      },
+      {
+        heading: 'Prototype and Testing',
+        eyebrow: 'From CAD to bench hardware',
+        paragraphs: [
+          'We built a physical prototype to evaluate the suspension architecture under drop-like conditions. The prototype allowed us to check whether the scissor geometry moved cleanly, whether the belt path remained aligned, and whether the frame was stiff enough to support repeated testing.',
+          'Testing focused on measuring deceleration forces, validating the system response, and comparing performance against passive baselines. The most important engineering loop was iterative: model the dynamic behavior, build the mechanism, test the response, and refine the geometry and damping assumptions.',
+        ],
+      },
+      {
+        heading: 'Results and Takeaways',
+        eyebrow: 'What the capstone validated',
+        paragraphs: [
+          'The final system demonstrated the feasibility of using an active suspension architecture to reduce peak impact forces while remaining reusable. Unlike passive absorbers that are consumed during a drop, this approach can recover after impact and be retuned for new conditions.',
+          'The project reinforced that adaptive impact mitigation is a coupled mechanical and controls problem. Mechanical design determines the available stroke, load paths, and energy flow, while sensing and control determine how effectively the system can use that motion during a fast transient event.',
+        ],
+        bullets: [
+          'Active systems can outperform passive approaches when the impact condition varies.',
+          'Scissor geometry and belt-brake routing provide a practical way to convert impact motion into controlled energy dissipation.',
+          'Iterative prototyping and testing are essential because real dynamic systems expose friction, compliance, alignment, and timing effects that models alone miss.',
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: 'projects/capstone-active-suspension.jpg',
+        alt: 'Built active suspension prototype',
+        caption: 'Built scissor-lift suspension prototype with aluminum frame, guided platform, and belt routing hardware.',
+      },
+      {
+        src: 'projects/capstone-belt-path.png',
+        alt: 'Belt brake routing diagram',
+        caption: 'Belt-brake routing concept used to convert suspension travel into controllable braking resistance.',
+      },
+      {
+        src: 'projects/capstone-scissor-geometry.png',
+        alt: 'Scissor geometry model',
+        caption: 'Scissor mechanism geometry used to relate platform stroke, linkage motion, and suspension response.',
+      },
+      {
+        src: 'projects/capstone-deceleration.png',
+        alt: 'Modeled deceleration forces plot',
+        caption: 'Modeled deceleration behavior used to evaluate impact force reduction and tune the response.',
+      },
+    ],
+  },
 ];
 
 export function getProject(slug: string) {

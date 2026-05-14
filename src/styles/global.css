@@ -257,7 +257,7 @@ img {
 
 .portfolio {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   border-bottom: 2px solid var(--ink);
   background: var(--ink);
 }
@@ -272,7 +272,7 @@ img {
   background: var(--paper);
 }
 
-.portfolio-entry:nth-child(4n) {
+.portfolio-entry:nth-child(5n) {
   border-right: 0;
 }
 
@@ -569,7 +569,7 @@ img {
 
 .project-gallery {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 0;
   border-top: 2px solid var(--ink);
   border-bottom: 2px solid var(--ink);
@@ -619,7 +619,7 @@ img {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .portfolio-entry:nth-child(4n) {
+  .portfolio-entry:nth-child(5n) {
     border-right: 2px solid var(--ink);
   }
 
