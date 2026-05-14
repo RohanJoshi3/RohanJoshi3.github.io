@@ -1,65 +1,10 @@
 ---
 import '../styles/global.css';
+import { projects } from '../data/projects';
 
-const experiences = [
-  {
-    company: 'SpaceX',
-    role: 'Dragon Structures Engineering Intern',
-    date: 'Summer 2025',
-    summary:
-      'Worked on structural analysis and qualification testing for Dragon flight hardware and ground support equipment.',
-  },
-  {
-    company: 'General Dynamics',
-    role: 'Integration & Test Intern',
-    date: 'Summer 2024',
-    summary:
-      'Designed testing fixtures, performed FEA analysis, and developed Python-based systems for testing workflows.',
-  },
-  {
-    company: 'Embry-Riddle',
-    role: 'Research Intern',
-    date: 'Summer 2023',
-    summary:
-      'Conducted nanotechnology research on Organic Electrochemical Transistors for aerospace biosensing applications.',
-  },
-];
-
-const projects = [
-  {
-    name: 'FINsight',
-    tag: 'Rocketry',
-    summary:
-      'A strain-sensing fin system for rocket flight analysis using embedded systems, PCB design, and structural validation.',
-  },
-  {
-    name: 'OECT Biosensor',
-    tag: 'Research',
-    summary:
-      'Nanotechnology research focused on glucose sensors designed for demanding aerospace environments.',
-  },
-  {
-    name: 'Trash Trap System',
-    tag: 'Design',
-    summary:
-      'An environmentally safe filtration system built to reduce debris accumulation in Beaver Marsh.',
-  },
-  {
-    name: 'Rocketry Systems',
-    tag: 'Aerospace',
-    summary:
-      'Avionics, air-brake, and simulation work across student aerospace systems and launch operations.',
-  },
-];
-
-const focusAreas = [
-  'Structural analysis',
-  'Aerospace systems',
-  'Robotics',
-  'Embedded hardware',
-  'Additive manufacturing',
-  'Research translation',
-];
+const base = `${import.meta.env.BASE_URL}/`.replace(/\/+$/, '/');
+const asset = (path: string) => `${base}${path}`;
+const route = (path = '') => `${base}${path}`;
 ---
 
 <html lang="en">
@@ -70,177 +15,109 @@ const focusAreas = [
       name="description"
       content="Rohan Joshi is a Mechanical Engineering student at Duke University focused on aerospace, robotics, rocketry, and interdisciplinary engineering systems."
     />
-    <title>Rohan Joshi | Mechanical Engineering</title>
+    <title>Rohan Joshi | Engineering Portfolio</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href={asset('favicon.ico')} />
   </head>
 
   <body>
-    <div class="site-shell">
-      <header class="site-header">
-        <a href="#top" class="brand" aria-label="Rohan Joshi home">
-          <span class="brand-mark">RJ</span>
-          <span>Rohan Joshi</span>
+    <header class="site-nav">
+      <a class="nav-brand" href="#home">RJ</a>
+      <nav aria-label="Primary navigation">
+        <a href="#portfolio">Portfolio</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="splash">
+        <div class="intro-card">
+          <p class="intro-name">Rohan Joshi</p>
+          <p class="pronunciation">[/roh-hun/ /joe-shee/] &nbsp; noun</p>
+          <div class="intro-rule"></div>
+          <p class="intro-definition">
+            mechanical engineer, aerospace builder, roboticist, researcher.
+          </p>
+        </div>
+
+        <img
+          class="intro-photo"
+          src={asset('headshot.jpg')}
+          alt="Portrait of Rohan Joshi"
+        />
+
+        <a class="pointer pointer-portfolio" href="#portfolio">
+          Portfolio
+          <span>v</span>
         </a>
+        <a class="pointer pointer-about" href="#about">
+          About
+          <span>v</span>
+        </a>
+        <a class="pointer pointer-contact" href="#contact">
+          Contact
+          <span>v</span>
+        </a>
+      </section>
 
-        <nav aria-label="Primary navigation">
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </header>
+      <section class="about-panel" id="about">
+        <div>
+          <p class="section-label">About</p>
+          <h1>Mechanical engineering, from concept to tested hardware.</h1>
+        </div>
+        <div class="about-copy">
+          <p>
+            I am a Mechanical Engineering student at Duke University pursuing
+            certificates in Aerospace Engineering and Innovation &
+            Entrepreneurship.
+          </p>
+          <p>
+            My work spans aerospace systems, structural analysis, aerodynamics,
+            additive manufacturing, embedded systems, and nanotechnology
+            research.
+          </p>
+          <p>
+            I enjoy designing and building systems that bridge physical
+            engineering and computational tools.
+          </p>
+        </div>
+      </section>
 
-      <main id="top">
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="hero-copy">
-            <p class="eyebrow">Mechanical Engineering / Aerospace / Robotics</p>
-            <h1 id="hero-title">Rohan Joshi</h1>
-            <p class="hero-lede">
-              Mechanical Engineering student at Duke University building across
-              aerospace structures, rocketry, robotics, and interdisciplinary
-              engineering systems.
-            </p>
-
-            <div class="hero-actions" aria-label="Contact links">
-              <a class="button primary" href="mailto:rohan.joshi@duke.edu">
-                Email
-              </a>
-              <a class="button secondary" href="#projects">View Work</a>
-            </div>
-          </div>
-
-          <aside class="hero-panel" aria-label="Profile summary">
-            <img src="/headshot.jpg" alt="Portrait of Rohan Joshi" />
-            <div class="panel-content">
-              <p>Duke University</p>
-              <strong>Mechanical Engineering</strong>
-              <span>Aerospace Engineering / Innovation & Entrepreneurship</span>
-            </div>
-          </aside>
-        </section>
-
-        <section class="signal-row" aria-label="Engineering focus areas">
-          <div>
-            <span>Focus</span>
-            <strong>Physical systems with computational rigor</strong>
-          </div>
-          <div>
-            <span>Practice</span>
-            <strong>Analysis, prototyping, test, iteration</strong>
-          </div>
-          <div>
-            <span>Now</span>
-            <strong>Aerospace structures and robotics</strong>
-          </div>
-        </section>
-
-        <section id="about" class="section about-grid">
-          <div>
-            <p class="section-kicker">About</p>
-            <h2>Engineering from concept to tested hardware.</h2>
-          </div>
-
-          <div class="section-copy">
-            <p>
-              I am a Mechanical Engineering student at Duke University pursuing
-              certificates in Aerospace Engineering and Innovation &
-              Entrepreneurship.
-            </p>
-            <p>
-              My work spans aerospace systems, structural analysis,
-              aerodynamics, additive manufacturing, embedded systems, and
-              nanotechnology research.
-            </p>
-            <p>
-              I enjoy designing and building systems that bridge physical
-              engineering and computational tools.
-            </p>
-          </div>
-        </section>
-
-        <section class="focus-strip" aria-label="Technical strengths">
-          {focusAreas.map((area) => <span>{area}</span>)}
-        </section>
-
-        <section id="experience" class="section">
-          <div class="section-heading">
-            <p class="section-kicker">Experience</p>
-            <h2>Recent engineering roles.</h2>
-          </div>
-
-          <div class="timeline">
-            {
-              experiences.map((item) => (
-                <article class="timeline-item">
-                  <div>
-                    <span>{item.date}</span>
-                    <h3>{item.company}</h3>
-                  </div>
-                  <div>
-                    <p class="role">{item.role}</p>
-                    <p>{item.summary}</p>
-                  </div>
-                </article>
-              ))
-            }
-          </div>
-        </section>
-
-        <section id="projects" class="section">
-          <div class="section-heading">
-            <p class="section-kicker">Projects</p>
-            <h2>Selected work.</h2>
-          </div>
-
-          <div class="project-grid">
-            {
-              projects.map((project) => (
-                <article class="project-card">
-                  <div class="project-meta">
-                    <span>{project.tag}</span>
-                  </div>
-                  <h3>{project.name}</h3>
-                  <p>{project.summary}</p>
-                </article>
-              ))
-            }
-          </div>
-        </section>
-
-        <section id="contact" class="section contact-section">
-          <div>
-            <p class="section-kicker">Contact</p>
-            <h2>Let's build something precise.</h2>
-          </div>
-
-          <div class="contact-actions">
-            <a class="button primary" href="mailto:rohan.joshi@duke.edu">
-              Email
-            </a>
-            <a class="button secondary" href="https://github.com/rjoshi4464-rgb">
-              GitHub
-            </a>
+      <section class="portfolio" id="portfolio" aria-label="Project portfolio">
+        {
+          projects.map((project) => (
             <a
-              class="button secondary"
-              href="https://www.linkedin.com/in/rohanjoshi2/"
+              class="portfolio-entry"
+              href={route(`projects/${project.slug}/`)}
+              aria-label={`Open ${project.shortTitle} project page`}
             >
-              LinkedIn
+              <img src={asset(project.image)} alt={project.imageAlt} loading="lazy" />
+              <div class="portfolio-overlay">
+                <div>
+                  <span>{project.shortTitle}</span>
+                  <em>{project.summary}</em>
+                </div>
+              </div>
             </a>
-          </div>
-        </section>
-      </main>
+          ))
+        }
+      </section>
 
-      <footer>
-        <span>© 2026 Rohan Joshi</span>
-        <span>Mechanical Engineering / Aerospace / Robotics</span>
+      <footer class="site-footer" id="contact">
+        <span>&copy; 2026 Rohan Joshi</span>
+        <div>
+          <a href="mailto:rohan.joshi@duke.edu">Email</a>
+          <a href="https://github.com/rjoshi4464-rgb">GitHub</a>
+          <a href="https://www.linkedin.com/in/rohanjoshi2/">LinkedIn</a>
+        </div>
       </footer>
-    </div>
+    </main>
   </body>
 </html>
