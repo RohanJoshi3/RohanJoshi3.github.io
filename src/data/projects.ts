@@ -781,6 +781,57 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: 'pump-platform',
+    href: 'pump-platform/',
+    title: 'Pump Support Platform Design',
+    shortTitle: 'Pump Support Platform',
+    category: 'Mechanical Design / Structural Analysis',
+    date: 'ME 321 Mechanical Design',
+    summary:
+      'Design, analysis, and prototyping of a modular aluminum support platform for a centrifugal pump under combined pump, pulley, and frame loads.',
+    image: 'projects/pump-platform/cad-isometric.png',
+    imageAlt: 'CAD isometric view of the pump support platform assembly',
+    tags: ['Structural analysis', 'SolidWorks FEA', 'Prototyping', 'Manufacturing'],
+    meta: [
+      { label: 'Pump load', value: '12.5 lb centrifugal pump' },
+      { label: 'Hydraulic target', value: '150 GPM to 60 ft head at 65 percent efficiency' },
+      { label: 'Validation', value: '115 lbf prototype load with about 2.5 mm measured deflection' },
+      { label: 'Construction', value: 'Aluminum I-beams, tubing, angled supports, and clevis pins' },
+    ],
+    highlights: [
+      'Solved support reactions from pump weight, belt forces, pulley torque, and frame constraints using static equilibrium.',
+      'Used hand calculations and SolidWorks FEA to check von Mises stress, stress concentrations, support-arm buckling, and deflection.',
+      'Built and tested a modular aluminum prototype that met the packaging and validation requirements.',
+    ],
+    sections: [
+      {
+        heading: 'Overview',
+        eyebrow: 'Pump support structure',
+        paragraphs: [
+          'This project involved designing, analyzing, and prototyping a structural support platform for a centrifugal pump system.',
+          'The design balanced pump loading, belt-driven pulley forces, frame reactions, lightweight construction, modular assembly, and manufacturability. The final case study is available as a polished standalone project page.',
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: 'projects/pump-platform/cad-isometric.png',
+        alt: 'CAD isometric view of the pump support platform assembly',
+        caption: 'CAD isometric view showing the platform, support arms, clevis pins, and loading surface.',
+      },
+      {
+        src: 'projects/pump-platform/fea-full-structure.png',
+        alt: 'Full structure von Mises stress contour plot',
+        caption: 'SolidWorks von Mises stress contour for the full platform assembly.',
+      },
+      {
+        src: 'projects/pump-platform/physical-prototype.png',
+        alt: 'Physical pump support platform prototype mounted in the frame',
+        caption: 'Physical prototype installed in the frame during validation.',
+      },
+    ],
+  },
 ];
 
 export function getProject(slug: string) {
