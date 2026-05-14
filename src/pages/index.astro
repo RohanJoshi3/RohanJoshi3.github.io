@@ -5,6 +5,17 @@ import { projects } from '../data/projects';
 const base = `${import.meta.env.BASE_URL}/`.replace(/\/+$/, '/');
 const asset = (path: string) => `${base}${path}`;
 const route = (path = '') => `${base}${path}`;
+const portfolioOrder = [
+  'active-suspension-capstone',
+  'spacex-dragon-structures',
+  'finsight',
+  'rocketry-systems',
+  'oect-biosensor',
+  'trash-trap',
+];
+const orderedProjects = portfolioOrder
+  .map((slug) => projects.find((project) => project.slug === slug))
+  .filter((project): project is (typeof projects)[number] => Boolean(project));
 ---
 
 <html lang="en">
@@ -92,7 +103,7 @@ const route = (path = '') => `${base}${path}`;
 
       <section class="portfolio" id="portfolio" aria-label="Project portfolio">
         {
-          projects.map((project) => (
+          orderedProjects.map((project) => (
             <a
               class="portfolio-entry"
               href={route(`projects/${project.slug}/`)}
