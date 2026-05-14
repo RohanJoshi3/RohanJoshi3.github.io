@@ -472,8 +472,8 @@ export const projects: Project[] = [
     date: 'SpaceX Internship',
     summary:
       'Structural analysis, qualification, and test-correlation work for Dragon flight hardware and Ground Support Equipment supporting launch operations at Cape Canaveral.',
-    image: 'projects/spacex-dragon-structures.svg',
-    imageAlt: 'Technical schematic representing Dragon structures analysis and qualification work',
+    image: 'projects/spacex-dragon-capsule.png',
+    imageAlt: 'SpaceX Dragon spacecraft in orbit above Earth',
     tags: ['Structural analysis', 'Qualification testing', 'Fatigue and fracture', 'Engineering tools'],
     meta: [
       { label: 'Team', value: 'Dragon Structures' },
@@ -544,10 +544,10 @@ export const projects: Project[] = [
     ],
     gallery: [
       {
-        src: 'projects/spacex-dragon-structures.svg',
-        alt: 'Dragon Structures engineering schematic',
+        src: 'projects/spacex-dragon-capsule.png',
+        alt: 'SpaceX Dragon spacecraft in orbit above Earth',
         caption:
-          'Custom schematic representing the confidential structural analysis, qualification, and test-correlation work from the internship.',
+          'Dragon spacecraft imagery used to represent the structures engineering internship while keeping component-level work confidential.',
       },
     ],
   },
