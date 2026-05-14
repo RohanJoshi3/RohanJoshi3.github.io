@@ -563,6 +563,172 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: 'pressure-vessel',
+    title: 'Pressure Vessel Design',
+    shortTitle: 'Pressure Vessel Design',
+    category: 'Mechanical Design / Manufacturing',
+    date: 'ME 421 Mechanical Design',
+    summary:
+      'Design, analysis, machining, and validation of a 750 psi aluminum pressure vessel with a Parker-sized O-ring seal and four-bolt end cap.',
+    image: 'projects/pressure-vessel/final-machined-vessel.jpg',
+    imageAlt: 'Final machined aluminum pressure vessel with brass fitting',
+    tags: ['Pressure vessels', 'Machining', 'Hand calculations', 'Sealing design'],
+    meta: [
+      { label: 'Operating pressure', value: '750 psig hydrostatic pressure test' },
+      { label: 'Internal volume', value: '3.58 in3 / 58.7 cc, meeting the 50-60 cc requirement' },
+      { label: 'Material', value: 'Aluminum 6061-T6 cylindrical body and end cap' },
+      { label: 'Closure', value: 'Four M6-1 bolts with a 219 O-ring face seal' },
+    ],
+    highlights: [
+      'Designed a compact cylindrical vessel around manufacturability, sealing reliability, and structural safety.',
+      'Validated the pressure boundary, O-ring gland, and bolted joint with hand calculations before machining.',
+      'Machined and assembled the final vessel, then verified it held 750 psi with no leakage during testing.',
+    ],
+    sections: [
+      {
+        heading: 'Overview',
+        eyebrow: 'Design and validation',
+        paragraphs: [
+          'This project focused on designing, analyzing, machining, and validating a cylindrical aluminum pressure vessel capable of containing water at 750 psig while holding 50-60 cc of fluid.',
+          'The final assembly used a 6061-T6 aluminum body, bored internal cavity, centered 0.25 in NPT threaded port, four-bolt end cap, and static O-ring sealing system. The design emphasized manufacturability on manual machines, reliable sealing, and conservative structural safety margins.',
+          'Hand calculations were completed before fabrication to validate hoop stress, material factors of safety, O-ring groove sizing, fastener preload, joint stiffness, and separation resistance. Physical testing then confirmed the calculations by pressurizing the completed vessel to 750 psi without leakage.',
+        ],
+      },
+      {
+        heading: 'Design Requirements',
+        eyebrow: 'Project constraints',
+        bullets: [
+          'Safely contain 50-60 cc of liquid at an internal pressure of 750 psig.',
+          'Include at least one working O-ring seal for pressure containment.',
+          'Use a 0.25 in NPT threaded port for fluid entry and test plumbing.',
+          'Remain manufacturable with manual lathe and mill operations.',
+          'Keep purchased materials within a $100 project budget.',
+          'Use a geometry simple enough to machine, inspect, assemble, and test reliably.',
+        ],
+      },
+      {
+        heading: 'Design Evolution',
+        eyebrow: 'Manufacturability trade',
+        paragraphs: [
+          'The early design used a flange-based closure with a bolt and nut stack-up. That concept achieved the basic pressure vessel architecture, but it added unnecessary turning operations, more radial material removal, and more setup complexity on manual machines.',
+          'The design evolved into a uniform-diameter cylindrical body with threaded holes in the vessel. This removed extra lathe work, reduced the bolt count to four, kept the bolt pattern symmetric, and made the O-ring groove easier to machine between the internal bore and the fastener circle.',
+          'Because weight optimization was not a primary requirement, the final design accepted a robust wall thickness rather than pushing toward a thin-walled part that would be harder to machine and more sensitive to chatter or setup variation.',
+        ],
+        bullets: [
+          'Transitioned from a flange-heavy concept to a simpler cylindrical geometry.',
+          'Reduced machining steps by preserving the stock outer diameter where possible.',
+          'Used four evenly spaced M6-1 bolts to simplify drilling, tapping, and assembly.',
+          'Moved complexity into controlled features: the bore, NPT port, threaded holes, and O-ring gland.',
+        ],
+      },
+      {
+        heading: 'Final Design',
+        eyebrow: 'Pressure boundary architecture',
+        paragraphs: [
+          'The final vessel was machined from aluminum 6061-T6 stock, selected for strength, machinability, and weight. The body has a 2.500 in outer diameter, 1.250 in inner diameter, 0.625 in wall thickness, and a 2.92 in internal cavity length, giving an internal volume of 3.58 in3, or 58.7 cc.',
+          'A single 0.25 in NPT port is centered at the top for fluid entry. The end cap sits flush against the vessel body and is clamped by four M6-1 bolts into threaded holes. The O-ring groove sits between the central cavity and bolt pattern, creating a compact static face seal.',
+          'The symmetric geometry made the part easier to fixture, machine, and inspect while keeping the pressure load path straightforward.',
+        ],
+      },
+      {
+        heading: 'Pressure Vessel Stress Analysis',
+        eyebrow: 'Hoop stress and material safety',
+        paragraphs: [
+          'Thin-wall pressure vessel theory was used as a conservative screening calculation. With internal pressure P = 750 psi, inner radius ri = 0.625 in, and wall thickness t = 0.625 in, the hoop stress calculation gave sigma_hoop = P*ri/t = 750 psi.',
+          'The vessel material was aluminum 6061-T6, with yield strength of 40,000 psi and ultimate strength of 50,000 psi. These values produced factors of safety of approximately 53.3 against yield and 66.7 against ultimate failure.',
+          'Those factors are intentionally high. The theoretical minimum wall thickness was far smaller, but a thin section would be impractical to machine, more likely to chatter, and less robust during assembly and pressure testing. The final wall thickness was chosen for manufacturability and repeatable hardware quality as much as pure stress margin.',
+        ],
+      },
+      {
+        heading: 'O-Ring Design',
+        eyebrow: 'Seal sizing',
+        paragraphs: [
+          'The original 1/16 in O-ring concept was replaced after reviewing the machining risk and sealing reliability with machine shop staff. The final design used a silicone standard size 219 O-ring because the larger cross section fit between the 1.25 in cavity and bolt pattern while producing a more practical gland.',
+          'Groove geometry was derived using Parker radial seal design guidance. The final gland used a 0.112 in depth, 0.187 in width, 1.285 in ID, and 1.659 in OD.',
+          'The gland checks confirmed that the O-ring ID fit target was approximately 1 percent smaller than the gland ID, cross-section exceeded gland depth, compression ratio was 19.4 percent, and gland fill was 72.5 percent. Those checks gave confidence that the seal would compress enough to hold pressure without requiring an overly fragile groove.',
+        ],
+      },
+      {
+        heading: 'Fastener Analysis',
+        eyebrow: 'Bolted joint closure',
+        paragraphs: [
+          'The internal pressure creates a separating force on the end cap that must be resisted by the bolted joint. Using the effective circular area of 1.2217 in2 and design pressure of 750 psi, the total separating force was calculated as 920.38 lbf, or 4.094 kN.',
+          'With four bolts, the separating force per bolt was approximately 1.024 kN. The joint model included bolt stiffness, member stiffness, stiffness ratio, preload, and torque. The final stiffness ratio was C = 0.0906, with preload targeted at 90 percent of proof load and an estimated torque of 18.75 N*m.',
+          'The calculated safety factors were 1.105 against proof strength, 16.8 against joint separation, and 18.7 against overload. The proof factor shows that preload uses the selected bolt strength efficiently, while the separation and overload margins confirm that the joint remains clamped under pressure.',
+        ],
+      },
+      {
+        heading: 'Manufacturing',
+        eyebrow: 'Lathe and mill workflow',
+        paragraphs: [
+          'The final geometry was designed around straightforward manual lathe and mill operations. The main lathe work involved preparing the cylindrical stock and boring the internal cavity to the required diameter and depth.',
+          'Mill operations focused on drilling and tapping the threaded holes, machining the O-ring groove, and preparing the mating end cap. The simplified cylindrical body removed unnecessary flange turning operations and reduced the number of critical setups.',
+          'This manufacturability-driven approach made the pressure vessel easier to machine accurately, easier to assemble, and easier to inspect before testing.',
+        ],
+      },
+      {
+        heading: 'Results',
+        eyebrow: 'Pressure test',
+        paragraphs: [
+          'The completed pressure vessel successfully contained pressurized water at 750 psi during testing with no observed leakage. This validated the hand calculations, material selection, O-ring design, fastener design, and manufacturing decisions used throughout the project.',
+          'The final design met the project requirements for pressure containment, 50-60 cc capacity, manufacturability, sealing, threaded fluid access, and budget-conscious hardware selection.',
+        ],
+      },
+      {
+        heading: 'Key Takeaways',
+        eyebrow: 'Engineering lessons',
+        bullets: [
+          'Manufacturability is a primary design constraint, not an afterthought.',
+          'Sealing systems need the same rigor as stress calculations because pressure containment depends on the full closure system.',
+          'Simple geometry can be the best engineering decision when it improves machining, inspection, and assembly reliability.',
+          'Experimental validation closes the loop between hand calculations and real hardware performance.',
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: 'projects/pressure-vessel/final-machined-vessel.jpg',
+        alt: 'Final machined aluminum pressure vessel with brass fitting',
+        caption: 'Final machined vessel used for the 750 psi pressure test.',
+      },
+      {
+        src: 'projects/pressure-vessel/final-design-cad-photo.jpg',
+        alt: 'CAD model beside manufactured pressure vessel',
+        caption: 'CAD model compared with the manufactured pressure vessel.',
+      },
+      {
+        src: 'projects/pressure-vessel/design-evolution.png',
+        alt: 'Initial and final pressure vessel CAD models',
+        caption: 'Design evolution from flange-based geometry to compact cylindrical body.',
+      },
+      {
+        src: 'projects/pressure-vessel/assembly-drawing.png',
+        alt: 'Assembly drawing for the pressure vessel',
+        caption: 'Final assembly drawing showing section view, port, fasteners, and cap.',
+      },
+      {
+        src: 'projects/pressure-vessel/original-flange-drawing.png',
+        alt: 'Original flange pressure vessel drawing',
+        caption: 'Original flange design used during the manufacturability trade.',
+      },
+      {
+        src: 'projects/pressure-vessel/original-end-cap-drawing.png',
+        alt: 'Original pressure vessel end cap drawing',
+        caption: 'Original end cap drawing before as-built updates.',
+      },
+      {
+        src: 'projects/pressure-vessel/as-built-vessel-drawing.png',
+        alt: 'As-built pressure vessel drawing',
+        caption: 'As-built vessel drawing reflecting final machined dimensions.',
+      },
+      {
+        src: 'projects/pressure-vessel/as-built-end-cap-drawing.png',
+        alt: 'As-built pressure vessel end cap drawing',
+        caption: 'As-built end cap drawing for the four-bolt closure.',
+      },
+    ],
+  },
 ];
 
 export function getProject(slug: string) {
