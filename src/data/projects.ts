@@ -1,5 +1,6 @@
 export type ProjectSection = {
   heading: string;
+  eyebrow?: string;
   paragraphs?: string[];
   bullets?: string[];
 };
@@ -8,6 +9,11 @@ export type ProjectImage = {
   src: string;
   alt: string;
   caption?: string;
+};
+
+export type ProjectMeta = {
+  label: string;
+  value: string;
 };
 
 export type Project = {
@@ -20,6 +26,9 @@ export type Project = {
   image: string;
   imageAlt: string;
   sourceUrl?: string;
+  tags: string[];
+  meta: ProjectMeta[];
+  highlights: string[];
   sections: ProjectSection[];
   gallery: ProjectImage[];
 };
@@ -36,27 +45,62 @@ export const projects: Project[] = [
     image: 'projects/finsight-launch.webp',
     imageAlt: 'Pitchfork rocket launching at Spaceport America Cup',
     sourceUrl: 'https://sites.duke.edu/rohanjoshi/2024/09/06/240/',
+    tags: ['Aeroelasticity', 'PCB design', 'Embedded systems', 'Wind tunnel testing'],
+    meta: [
+      { label: 'Role', value: 'Subsystem lead for FINsight development' },
+      { label: 'Vehicle', value: 'Duke AERO Pitchfork rocket' },
+      { label: 'Hardware', value: '0.4 mm PCBs, strain gauges, NAU7802 ADCs, Teensy 4.1' },
+      { label: 'Validation', value: 'Wind tunnel testing up to 35 m/s plus thermal calibration' },
+    ],
+    highlights: [
+      'Embedded strain gauges directly into composite rocket fins to measure aerodynamic loading in flight.',
+      'Moved sensitive electronics into a 3D-printed Strain Measurement Module to reduce thermal and structural risk near the motor casing.',
+      'Connected fin strain data to future design decisions around geometry, mounting, vibration, flutter, and control.',
+    ],
     sections: [
       {
-        heading: 'Overview',
+        heading: 'Problem',
+        eyebrow: 'Why it mattered',
         paragraphs: [
-          "As part of Duke AERO's rocket project, Pitchfork, I spearheaded the development of FINsight, a cutting-edge system designed to measure in-flight aerodynamic loads on the fins. This system integrates strain gauges directly into the rocket's fins, providing high-resolution data on the forces experienced during flight. By leveraging this data, we aimed to gain deeper insights into the structural behavior of the fins, surpassing traditional methods like onboard cameras or simulations in accuracy and relevance.",
-          'FINsight utilizes custom-designed printed circuit boards (PCBs) where strain gauges, made from copper traces, are strategically placed based on modal analysis of the first three fin vibration modes. These strain gauges form part of a Wheatstone bridge circuit, which detects deformation in the fins. As aerodynamic loads deform the fins, the gauges measure the resulting voltage changes. These fluctuations are captured by high-precision NAU7802 24-bit analog-to-digital converters (ADCs) and processed by a Teensy 4.1 microcontroller. The entire system is housed within a 3D-printed Strain Measurement Module (SMM) mounted inside the rocket.',
-          "To minimize interference with the structural integrity of the fins, the PCBs are only 0.4 mm thick. Additionally, the electronic components were relocated to the SMM in the rocket's body, avoiding thermal damage near the motor casing. The system is powered by dual lithium-ion batteries, ensuring reliable performance throughout the flight.",
+          "Traditional rocket flight data often relies on simulations, onboard cameras, or indirect measurements. Those tools are useful, but they do not directly capture how each fin behaves under real aerodynamic loading. FINsight was created to close that gap by measuring strain at the fin level during flight.",
+          "As part of Duke AERO's Pitchfork rocket project, I led development of a system that integrates strain gauges into the fins themselves. The goal was to produce high-resolution data that could reveal how aerodynamic loads, vibration, and temperature changes affect fin behavior during launch.",
         ],
       },
       {
-        heading: 'Fin Integration',
+        heading: 'System Architecture',
+        eyebrow: 'Electronics and sensing',
         paragraphs: [
-          'The fins themselves are made using a sandwich composite structure. A G-10 fiberglass core was layered with the PCB on one side and carbon fiber reinforcement on the other to ensure strength and minimize torsional stress. To maintain structural symmetry and prevent signal interference from the carbon fiber, the PCBs were coated with a UV-cured solder mask. The system was connected to the SMM via small wire slits that were sealed with a carbon-epoxy mix, preserving the airframe integrity.',
+          'FINsight uses custom-designed printed circuit boards where copper-trace strain gauges are placed according to modal analysis of the first three fin vibration modes. The strain gauges are arranged as part of a Wheatstone bridge circuit, allowing small fin deformations to be converted into measurable voltage changes.',
+          'Those voltage fluctuations are captured by NAU7802 24-bit analog-to-digital converters and processed by a Teensy 4.1 microcontroller. The full electronics stack is housed in a 3D-printed Strain Measurement Module inside the rocket body, which keeps sensitive components away from the high-temperature region near the motor casing.',
+        ],
+        bullets: [
+          'Copper-trace gauges were integrated into custom fin PCBs rather than added as external sensors.',
+          'Dual lithium-ion batteries were used to support reliable operation through launch.',
+          'Thermal measurement was included so temperature effects could be separated from structural strain.',
         ],
       },
       {
-        heading: 'Testing and Impact',
+        heading: 'Mechanical Integration',
+        eyebrow: 'Composite fin design',
         paragraphs: [
-          'A series of wind tunnel tests and thermal calibrations were performed to validate the performance of FINsight. The wind tunnel tests exposed the rocket to speeds up to 35 m/s at high angles of attack, simulating transonic flight conditions. Strain gauge readings showed a clear correlation between voltage and airspeed, verifying that the system accurately captured aerodynamic loads. Additionally, thermal tests helped mitigate the effects of temperature fluctuations, using a thermocouple integrated into the fins to calibrate the system in real-time.',
-          'The data collected by FINsight provides unparalleled insights into the aerodynamic forces acting on each fin. This information will directly influence future fin designs by informing decisions about fin geometry, weight, and mounting procedures to mitigate vibrations and improve flight stability. More importantly, this technology opens the door to advanced applications such as actively-controlled fins that can adjust to suppress flutter, enhancing rocket guidance, navigation, and control in real-time.',
-          "As FINsight progresses, we aim to improve calibration techniques for even more accurate data, reduce thermal noise through better insulation, and refine the electronics to optimize the system's sensitivity and robustness. Ultimately, FINsight represents a significant advancement in our understanding of aeroelastic behavior, and our goal is to make it a standard part of Duke AERO's design process for future rockets.",
+          'The fins use a sandwich composite structure: a G-10 fiberglass core, the PCB on one side, and carbon fiber reinforcement on the other. This maintained strength while giving FINsight access to the fin strain field. To keep the fin structurally balanced and reduce electrical interference, the PCB was coated with UV-cured solder mask.',
+          "Because the PCBs were only 0.4 mm thick, the sensing layer could be added without heavily disturbing the fin's aerodynamic or structural profile. Wiring passed through small slits that were sealed with a carbon-epoxy mix to preserve airframe integrity.",
+        ],
+      },
+      {
+        heading: 'Testing and Results',
+        eyebrow: 'Validation loop',
+        paragraphs: [
+          'The system was tested through wind tunnel runs and thermal calibration. In wind tunnel testing, the rocket was exposed to airspeeds up to 35 m/s at high angles of attack to simulate demanding aerodynamic conditions. The strain gauge readings showed a clear relationship between voltage and airspeed, validating that the system was capturing fin loading.',
+          'Thermal calibration helped identify how temperature fluctuations could bias the measurements. With the thermocouple integrated into the fin system, FINsight could separate thermal effects from aerodynamic strain more effectively.',
+        ],
+      },
+      {
+        heading: 'Impact',
+        eyebrow: 'What the data enables',
+        paragraphs: [
+          'The value of FINsight is not only the measurement system itself, but the design feedback it creates. The data can inform future fin geometry, mounting procedures, mass distribution, and vibration mitigation strategies. It also creates a path toward actively controlled fins that respond to flutter or aerodynamic loading in real time.',
+          "As the system matures, future work includes improving calibration, reducing thermal noise, and refining the electronics for better sensitivity and robustness. The long-term goal is to make FINsight a standard part of Duke AERO's design and validation process for future rockets.",
         ],
       },
     ],
@@ -84,40 +128,59 @@ export const projects: Project[] = [
     image: 'projects/oect-hero.png',
     imageAlt: 'OECT research setup and sensor diagrams',
     sourceUrl: 'https://sites.duke.edu/rohanjoshi/oect-research-aerospace-applications/',
+    tags: ['Nanobiosensors', 'Electrochemistry', 'Data collection', 'Aerospace medicine'],
+    meta: [
+      { label: 'Program', value: 'Embry-Riddle REU Exploring Aerospace' },
+      { label: 'Research focus', value: 'Organic Electrochemical Transistors for sweat glucose detection' },
+      { label: 'Device', value: 'Micrux microfluidic electrochemical sensor with four gold electrodes' },
+      { label: 'Comparison', value: 'PEDOT versus PEDOT/Graphene semiconductor layers' },
+    ],
+    highlights: [
+      'Fabricated and tested two OECT variants for non-invasive glucose sensing.',
+      'Collected concentration-response data across 0.001 mM to 10 mM glucose solutions.',
+      'Found that PEDOT/Graphene produced more than double the sensitivity of the standard PEDOT device.',
+    ],
     sections: [
       {
-        heading: 'Overview',
+        heading: 'Research Context',
+        eyebrow: 'Aerospace health monitoring',
         paragraphs: [
-          'During the summer, I interned at Embry Riddle Aeronautical University as part of their REU Exploring Aerospace program. My research focused on developing and testing a cutting-edge nanobiosensor called the Organic Electrochemical Transistor (OECT) for glucose detection from human sweat. This work merged elements of electrical engineering, biomedical engineering, and chemistry, aiming to create a reliable method for non-invasive health monitoring, particularly for pilots and astronauts in aerospace environments.',
-          'Glucose monitoring in these environments presents unique challenges due to the complexity, maintenance, and frequent recalibration requirements of conventional devices. My research tackled these limitations by exploring a simpler, more effective approach for real-time health monitoring. Despite the time constraints of a 10-week research program, I collected substantial data and authored a research paper that compared the sensitivity and selectivity of two OECT variations: PEDOT and PEDOT with graphene.',
-          'The project not only provided hands-on experience with innovative nanobiosensor technology but also highlighted its potential applications in aerospace and healthcare, paving the way for more accessible and reliable health monitoring systems. The research process involved many iterations, data-driven exploration, and adaptation, with each challenge informing subsequent refinements to the sensor design.',
+          'During the summer, I interned at Embry-Riddle Aeronautical University as part of the REU Exploring Aerospace program. My research focused on Organic Electrochemical Transistors for glucose detection from human sweat, combining electrical engineering, biomedical engineering, chemistry, and aerospace applications.',
+          'Pilots and astronauts operate in environments where conventional health-monitoring hardware can be too complex, maintenance-heavy, or slow to recalibrate. The project explored whether OECTs could support simpler real-time monitoring through a non-invasive sweat-based glucose sensor.',
         ],
       },
       {
-        heading: 'Fabrication',
+        heading: 'Device Fabrication',
+        eyebrow: 'Sensor construction',
         paragraphs: [
-          'The OECT device used in this study was a Micrux Microfluidic and Electrochemical Sensor integrated on a single chip with four gold electrodes and a glass substrate. This compact design featured a 10 x 6 x 0.75 mm sensor array with a 40 um channel height and 250 um/1 mm channel width, allowing for precise electrochemical measurements.',
-          'To fabricate the OECT, the electrodes were first masked with Teflon tape, leaving only the interdigitated electrodes exposed. The semiconductor solution, composed of poly(3,4-ethylenedioxythiophene) polystyrene sulfonate (PEDOT), was deposited into the gap between the source and drain electrodes and electrospun to form a thin, uniform layer. This layer was essential for ensuring consistent and reliable electrical performance. For the second variation of the OECT, PEDOT was mixed with graphene to improve the sensor sensitivity and selectivity. Both versions of the device were annealed at 130 C to ensure strong adhesion to the substrate and optimal electronic properties.',
-          'A glucose oxidase enzyme solution was then drop-cast onto the gate electrode, with chitosan used to adhere the glucose oxidase to the gold surface. The glucose oxidase facilitated the detection of glucose by catalyzing the conversion of glucose to gluconolactone and hydrogen peroxide, triggering an electrochemical response that could be measured by the OECT.',
+          'The device used a Micrux Microfluidic and Electrochemical Sensor integrated on a single chip with four gold electrodes and a glass substrate. The compact 10 x 6 x 0.75 mm sensor array included a 40 um channel height and 250 um/1 mm channel width for controlled electrochemical measurements.',
+          'To fabricate the transistor, the electrodes were masked with Teflon tape so only the interdigitated electrodes remained exposed. A PEDOT:PSS semiconductor solution was deposited between the source and drain electrodes and electrospun to create a thin, uniform layer. A second device used PEDOT mixed with graphene to improve sensitivity and selectivity.',
+          'Both device versions were annealed at 130 C to improve adhesion and electronic performance. A glucose oxidase enzyme solution was then drop-cast onto the gate electrode with chitosan to adhere the enzyme to the gold surface.',
         ],
       },
       {
-        heading: 'Experiment',
+        heading: 'Experimental Method',
+        eyebrow: 'Measurement workflow',
         paragraphs: [
-          'The electrodes were connected to a Keithley 2612B source measure unit using micropositioners, which allowed precise control over the electrical measurements. Initially, the change in current was measured over a range of gate voltages using phosphate-buffered saline as the electrolyte. This enabled the calculation of transconductance, a key parameter in determining the optimal operating conditions for the OECT. Using these conditions, I conducted measurements of current response at different glucose concentrations, ranging from 0.001 mM to 10 mM. The results revealed that the PEDOT with graphene exhibited more than double the sensitivity of the standard PEDOT, showcasing its potential for enhanced glucose detection. This increase in sensitivity was attributed to graphene higher surface area, which facilitated greater electron mobility and improved the overall performance of the OECT.',
+          'The electrodes were connected to a Keithley 2612B source measure unit using micropositioners, allowing controlled electrical measurements across the device. The first step was measuring current response over a range of gate voltages with phosphate-buffered saline as the electrolyte. This provided the transconductance data needed to choose operating conditions.',
+          'Using those conditions, I measured current response at glucose concentrations from 0.001 mM to 10 mM. The sensor output was then compared across the two semiconductor variants to evaluate sensitivity, selectivity, and current-voltage behavior.',
         ],
       },
       {
-        heading: 'Key Results',
+        heading: 'Results',
+        eyebrow: 'What changed with graphene',
         bullets: [
-          'The PEDOT/Graphene OECT demonstrated a sensitivity over twice that of the standard PEDOT device, making it significantly more effective for glucose detection.',
-          'Both devices exhibited sigmoid transfer curves, with the PEDOT/Graphene OECT showing a stronger current response due to its enhanced electron transport properties.',
+          'PEDOT/Graphene demonstrated sensitivity more than twice that of the standard PEDOT device.',
+          'Both devices showed sigmoid transfer curves, but the graphene-enhanced device produced a stronger current response.',
+          'The sensitivity increase was tied to graphene higher surface area and improved electron mobility.',
         ],
       },
       {
-        heading: 'Conclusion',
+        heading: 'Takeaway',
+        eyebrow: 'Research significance',
         paragraphs: [
-          'This research showcased the potential of OECTs as an effective tool for non-invasive glucose monitoring, particularly in challenging aerospace environments. The addition of graphene to the PEDOT semiconductor significantly improved the sensor sensitivity, making it a promising candidate for future health monitoring technologies. Future work may explore other semiconductor materials, such as n-type semiconductors, and additional modifications to further optimize the performance of OECTs for biomedical applications.',
+          'The work showed that OECTs are a promising platform for non-invasive glucose monitoring in challenging aerospace environments. It also demonstrated how material changes at the semiconductor layer can meaningfully affect sensor performance.',
+          'Future work could explore additional semiconductor materials, n-type variants, and device-level modifications that make the sensor more stable and practical for biomedical and aerospace use.',
         ],
       },
     ],
@@ -150,25 +213,51 @@ export const projects: Project[] = [
     image: 'projects/trash-prototype.jpg',
     imageAlt: 'Beaver Marsh trash trap prototype',
     sourceUrl: 'https://sites.duke.edu/rohanjoshi/beaver-marsh-trash-trap/',
+    tags: ['Human-centered design', 'Prototyping', 'Environmental protection', 'Client constraints'],
+    meta: [
+      { label: 'Client need', value: 'Block trash entering Beaver Marsh Preserve' },
+      { label: 'Constraint', value: 'Allow turtles to escape safely through the storm-drain path' },
+      { label: 'Team', value: 'Four-person engineering design group' },
+      { label: 'Outcome', value: 'Trap remained in service through heavy storms with no trapped turtles reported' },
+    ],
+    highlights: [
+      'Balanced debris collection with wildlife safety, rather than treating the trap as a simple grate.',
+      'Used an inclined mesh floor to preserve water flow while catching trash before it entered the preserve.',
+      'Added weighted transparent flaps to stop debris while giving turtles an escape route back into the marsh.',
+    ],
     sections: [
       {
-        heading: 'Overview',
+        heading: 'Design Challenge',
+        eyebrow: 'Two goals in one system',
         paragraphs: [
-          'For my Engineering and Design course at Duke, I was grouped with three engineers, tasked with the job of providing a trash trap for the Beaver Marsh Preserve in Durham, NC. However, the caveat of our task was that it not only had to prevent the flow of trash into the nature preserve but also had to prevent turtles from getting stuck inside. Many turtles find themselves lost outside the marsh and when they finally find their way back to the marsh, they end up walking into the storm drain where they are met with trash traps. These trash traps were purposely placed at the drain to block off the flow of garbage from an adjacent strip mall.',
-          'Our project demanded a delicate balance of preserving the pristine beauty of the marsh while ensuring the safety of its inhabitants, particularly the vulnerable turtle population. It challenged us to think innovatively, combining engineering principles with a deep understanding of local wildlife behavior. Thus, our design not only aimed to block trash from entering the preserve but also incorporated ingenious features to provide a safe passage for turtles. By addressing this dual objective, we aimed to create a harmonious coexistence between conservation and urban infrastructure.',
+          'For my Engineering and Design course at Duke, I worked with three other engineers to create a trash trap for Beaver Marsh Preserve in Durham, NC. The site needed protection from trash flowing out of a nearby storm drain, but the solution also had to account for turtles that could enter the drain while trying to return to the marsh.',
+          'A conventional trap could block debris, but it could also trap wildlife. The project therefore required a design that protected the preserve without creating a new hazard for the animals living around it.',
         ],
       },
       {
-        heading: 'Design',
+        heading: 'Concept Development',
+        eyebrow: 'From constraints to mechanism',
         paragraphs: [
-          'Our client needed a quick solution to protect the already endangered wildlife in the preserve and came to Duke Engineering for a solution. After going through multiple design evaluation steps, my group and I decided on an innovative trash trap that makes use of an inclined mesh on the bottom to allow for water flow but prevent trash from going through the trap. At the end of the trap, we placed two strategic, weighted transparent flaps which provide an additional barrier to the flow of trash into the preserve and gives turtles an easy escape from the outside world back into their home.',
+          'The team evaluated multiple design directions around water flow, debris capture, turtle movement, cost, and manufacturability. We converged on an inclined mesh system that allows water to pass through the bottom while preventing larger trash from moving into the preserve.',
+          'At the end of the trap, we added two weighted transparent flaps. These flaps act as an added debris barrier while still giving turtles a way to push through and return to the marsh. Transparency mattered because the animals needed a visible path rather than a fully opaque obstruction.',
+        ],
+      },
+      {
+        heading: 'Prototype Logic',
+        eyebrow: 'Why the geometry works',
+        bullets: [
+          'Inclined mesh reduces the chance that flow pressure pins debris flat against the trap.',
+          'The open mesh surface preserves drainage capacity during rain events.',
+          'Weighted flaps create asymmetric behavior: hard for trash to pass downstream, easier for turtles to push through from the outside path.',
+          'The design keeps maintenance realistic for a preserve setting where access and inspection time are limited.',
         ],
       },
       {
         heading: 'Outcome',
+        eyebrow: 'Field performance',
         paragraphs: [
-          'In the end, our trap was deemed very successful by our client. Notably, the trap not only effectively collected trash but also ensured the safe passage of turtles, a critical accomplishment for the Beaver Marsh Preserve. One of the most noteworthy achievements of our project was the absence of any trapped turtles within the device. This outcome underscored the precision and foresight with which we engineered the solution, ensuring that it seamlessly integrated into the marsh ecosystem without causing harm to its inhabitants. The trap has withstood heavy storms and is still up and running today, after almost a year. This enduring performance stands as a testament to the durability and quality of our engineering solution, which remains steadfast against the formidable forces of the natural world.',
-          'Throughout this project, we demonstrated our commitment to sustainable engineering practices and our dedication to creating solutions that benefit both the environment and the community. This experience not only honed our technical skills but also instilled in us a profound appreciation for the importance of balancing human needs with ecological preservation.',
+          'The final design was considered successful by the client. It collected trash while maintaining a safe passage route for turtles, and one of the most important outcomes was that no turtles were reported trapped in the device.',
+          'The trap also withstood heavy storms and remained installed after almost a year, showing that the structure was durable enough for the water and debris loads at the site. The project reinforced the importance of designing for both technical performance and ecological context.',
         ],
       },
     ],
@@ -196,27 +285,51 @@ export const projects: Project[] = [
     image: 'projects/rocketry-pad.webp',
     imageAlt: 'Duke AERO rocket on the launch pad',
     sourceUrl: 'https://dukerocketry.com/past-projects/',
+    tags: ['Avionics', 'Air brakes', 'Simulation', 'Launch operations'],
+    meta: [
+      { label: 'Organization', value: 'Duke AERO' },
+      { label: 'System scope', value: 'Avionics, air brakes, simulation, payload and recovery interfaces' },
+      { label: 'Environment', value: 'High-powered student launch vehicles' },
+      { label: 'Engineering focus', value: 'Requirements, integration, testing, and field reliability' },
+    ],
+    highlights: [
+      'Worked across subsystems where mechanical, electrical, and software constraints had to line up before launch.',
+      'Built engineering judgment around integration: packaging, accessibility, test procedures, wiring, and launch-day serviceability.',
+      'Connected analysis and simulation work to physical hardware decisions on student aerospace vehicles.',
+    ],
     sections: [
       {
-        heading: 'Overview',
+        heading: 'System Context',
+        eyebrow: 'Student aerospace hardware',
         paragraphs: [
           'My rocketry work has centered on student-built aerospace systems that combine avionics, structures, simulation, integration, and flight operations. Across Duke AERO projects, I worked on avionics, air brakes, and simulation systems for high-powered rockets.',
-          'The work demanded system-level thinking: each subsystem had to satisfy structural, electrical, packaging, and operational constraints while still being serviceable during launch preparation. That meant designing around interfaces, test procedures, manufacturability, and the realities of field integration.',
+          'This kind of work requires system-level thinking because a rocket is not a collection of isolated parts. A decision in the airframe can affect wiring paths, sensor placement, recovery volume, structural margins, and launch operations.',
         ],
       },
       {
-        heading: 'Systems',
+        heading: 'Subsystem Work',
+        eyebrow: 'Where the engineering converges',
         bullets: [
-          'Avionics and embedded electronics for launch vehicle sensing and data collection.',
-          'Variable-drag air-brake concepts for precise apogee targeting.',
-          'Simulation workflows for validating performance before flight.',
-          'Integration practices that connect structures, electronics, payloads, and recovery hardware.',
+          'Avionics and embedded electronics for sensing, telemetry, and data collection.',
+          'Variable-drag air-brake concepts used for apogee targeting and flight control studies.',
+          'Simulation workflows for estimating performance before committing to hardware.',
+          'Integration work that connects structures, payloads, electronics, recovery hardware, and operational procedures.',
         ],
       },
       {
-        heading: 'Why It Matters',
+        heading: 'Design Process',
+        eyebrow: 'From model to launch rail',
         paragraphs: [
-          'Rocketry is a useful testbed because the design loop is unforgiving. CAD, analysis, manufacturing, software, wiring, and operations all converge into one flight article. The value of the work is not just in building a rocket, but in learning how to make each decision traceable to a requirement, a test, or a flight condition.',
+          'The practical challenge is moving from a clean model to a flight article that can survive handling, transport, arming, launch loads, and recovery. That means each subsystem has to be designed for access, assembly, testing, and inspection.',
+          'A useful aerospace design is one that can be checked. I treated requirements, test plans, and integration constraints as design inputs, not documentation after the fact. That approach helped connect simulation results and hardware decisions to real launch-day conditions.',
+        ],
+      },
+      {
+        heading: 'Lessons',
+        eyebrow: 'Why rocketry is a strong testbed',
+        paragraphs: [
+          'Rocketry is unforgiving in a way that makes it valuable: CAD, analysis, manufacturing, wiring, software, and operations all converge into one flight article. The work taught me to think through interfaces early and to validate assumptions with tests wherever possible.',
+          'The most important lesson was that aerospace engineering quality depends on disciplined integration. A clever subsystem only matters if it works with the rest of the vehicle, can be verified, and can be operated reliably by the team under time pressure.',
         ],
       },
     ],
