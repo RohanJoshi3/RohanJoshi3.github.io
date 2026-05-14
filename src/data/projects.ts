@@ -464,6 +464,93 @@ export const projects: Project[] = [
       },
     ],
   },
+  {
+    slug: 'spacex-dragon-structures',
+    title: 'SpaceX - Dragon Structures Engineering Intern',
+    shortTitle: 'SpaceX Dragon Structures',
+    category: 'Aerospace Structures Internship',
+    date: 'SpaceX Internship',
+    summary:
+      'Structural analysis, qualification, and test-correlation work for Dragon flight hardware and Ground Support Equipment supporting launch operations at Cape Canaveral.',
+    image: 'projects/spacex-dragon-structures.svg',
+    imageAlt: 'Technical schematic representing Dragon structures analysis and qualification work',
+    tags: ['Structural analysis', 'Qualification testing', 'Fatigue and fracture', 'Engineering tools'],
+    meta: [
+      { label: 'Team', value: 'Dragon Structures' },
+      { label: 'Site context', value: 'Launch operations and integration support at Cape Canaveral' },
+      { label: 'Scope', value: 'Flight hardware, Ground Support Equipment, structural tests, and reusable analysis tools' },
+      { label: 'Confidentiality', value: 'Specific component-level details omitted' },
+    ],
+    highlights: [
+      'Combined FEA, hand calculations, fatigue analysis, fracture mechanics, and test correlation to support structural qualification decisions.',
+      'Developed reusable procedures and analysis tools that reduced turnaround time for recurring damage assessments.',
+      'Improved confidence in structural load testing by identifying test-to-flight differences and redesigning supporting GSE.',
+    ],
+    sections: [
+      {
+        heading: 'Overview',
+        eyebrow: 'Dragon structures engineering',
+        paragraphs: [
+          'During my internship on the Dragon Structures team at SpaceX, I worked on structural analysis, qualification, and testing of flight hardware and Ground Support Equipment supporting launch operations at Cape Canaveral.',
+          'My work focused on validating structural integrity, improving testing methodologies, and developing reusable engineering tools and procedures. The goal was to streamline analysis, expand allowable limits for critical components, and support safe reuse of hardware across flight and launch operations.',
+          'The role combined finite element analysis, hand calculations, fatigue and fracture mechanics, test design, data correlation, and cross-functional collaboration with launch and test engineering teams. Due to confidentiality, specific component-level details are omitted.',
+        ],
+      },
+      {
+        heading: 'Contributions',
+        eyebrow: 'Analysis, procedures, and qualification',
+        paragraphs: [
+          'My contributions spanned four connected areas: GSE structural validation, repeatable procedure development, fatigue and damage tolerance analysis, and structural load test design.',
+        ],
+        bullets: [
+          'Structural validation of GSE: performed ANSYS analysis to evaluate load cases, stress distributions, yield margins, and ultimate margins under operational conditions.',
+          'Launch integration support: collaborated with launch engineering teams to support GSE integration and deployment at the Cape Canaveral launch site.',
+          'Standard Repeatable Procedure development: authored an SRP for Dragon ballast components to streamline assessment of recurring damage scenarios.',
+          'Allowable-limit expansion: developed validated criteria to pre-approve common damage cases and expand allowable limits by up to 20x.',
+          'Master hand-calculation tool: built a reusable calculation workflow incorporating thermal knockdown factors, flight stress conditions, and multiple structural failure modes.',
+          'Fatigue qualification support: conducted damage equivalency and fatigue analysis for Dragon lifting lugs as part of a 15-flight qualification campaign.',
+          'Fracture mechanics: used NASGRO to assess crack growth behavior, confirm no fracture risk under expected conditions, and evaluate robustness against pitting and surface damage.',
+          'Test design and correlation: developed linear and non-linear FEMAP models, correlated simulation results with flight data post-processed in ABAQUS via META, and redesigned test GSE to better replicate real flight loading.',
+        ],
+      },
+      {
+        heading: 'Impact',
+        eyebrow: 'Operational engineering value',
+        paragraphs: [
+          'The internship work produced direct value by making structural assessments faster, more repeatable, and easier to scale. Reusable procedures and calculation tools reduced the time required to evaluate recurring cases while preserving the rigor needed for flight hardware decisions.',
+          'The test design work improved test-to-flight correlation, increasing confidence that qualification testing represented real loading conditions. The analysis also supported safe and reliable operation of flight hardware and GSE tied to launch infrastructure at Cape Canaveral.',
+        ],
+        bullets: [
+          'Enabled faster structural assessments through reusable tools and standardized procedures.',
+          'Improved confidence in qualification methods by aligning structural tests more closely with flight conditions.',
+          'Supported safe reuse of flight hardware by combining fatigue, fracture, and margin-based structural analysis.',
+          'Contributed to real launch operations through engineering support for GSE and Dragon-related infrastructure.',
+        ],
+      },
+      {
+        heading: 'Tools',
+        eyebrow: 'Engineering stack',
+        paragraphs: [
+          'The project required using simulation, analysis, and data-processing tools together rather than relying on any single method. Structural validation depended on connecting finite element results, hand calculations, test data, and fracture mechanics checks into a defensible engineering argument.',
+        ],
+        bullets: [
+          'ANSYS for structural validation, load case analysis, and margin checks.',
+          'FEMAP / Nastran for linear and non-linear finite element modeling.',
+          'ABAQUS with META for flight data post-processing and correlation workflows.',
+          'NASGRO for crack growth and fracture mechanics assessment.',
+          'Excel for engineering models, damage equivalency calculations, and reusable analysis automation.',
+        ],
+      },
+    ],
+    gallery: [
+      {
+        src: 'projects/spacex-dragon-structures.svg',
+        alt: 'Dragon Structures engineering schematic',
+        caption:
+          'Custom schematic representing the confidential structural analysis, qualification, and test-correlation work from the internship.',
+      },
+    ],
+  },
 ];
 
 export function getProject(slug: string) {

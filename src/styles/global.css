@@ -257,7 +257,7 @@ img {
 
 .portfolio {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   border-bottom: 2px solid var(--ink);
   background: var(--ink);
 }
@@ -272,7 +272,7 @@ img {
   background: var(--paper);
 }
 
-.portfolio-entry:nth-child(5n) {
+.portfolio-entry:nth-child(3n) {
   border-right: 0;
 }
 
@@ -619,7 +619,7 @@ img {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .portfolio-entry:nth-child(5n) {
+  .portfolio-entry:nth-child(3n) {
     border-right: 2px solid var(--ink);
   }
 
